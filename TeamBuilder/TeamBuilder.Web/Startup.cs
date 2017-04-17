@@ -1,7 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(TeamBuilder.Web.Startup))]
+[assembly: OwinStartup(typeof(TeamBuilder.Web.Startup))]
+
 namespace TeamBuilder.Web
 {
     public partial class Startup

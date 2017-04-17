@@ -1,6 +1,10 @@
 ﻿namespace TeamBuilder.Common.ViewModels.Account
 {
+    using System;
+    using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
+
+    using TeamBuilder.Models;
 
     public class RegisterViewModel
     {
@@ -8,6 +12,23 @@
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [StringLength(30, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 5)]
+        [RegularExpression("^([a-zA-Z0-9][_]?)*[a-zA-Z0-9]$", ErrorMessage = "Username may contain only letters, digits and \"_\" (can't appear in the beginning/end).")]
+        public string Username { get; set; }
+
+        [DisplayName("First Name")]
+        public string FirstName { get; set; }
+
+        [DisplayName("Last Name")]
+        public string LastName { get; set; }
+
+        [DisplayName("Birth Date")]
+        [DataType(DataType.Date)]
+        public DateTime? BirthDate { get; set; }
+
+        public Gender Gender { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
