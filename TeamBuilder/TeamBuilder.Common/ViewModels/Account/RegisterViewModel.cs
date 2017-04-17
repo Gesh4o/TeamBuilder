@@ -4,6 +4,7 @@
     using System.ComponentModel;
     using System.ComponentModel.DataAnnotations;
 
+    using TeamBuilder.Common.Validation.Attributes;
     using TeamBuilder.Models;
 
     public class RegisterViewModel
@@ -26,6 +27,7 @@
 
         [DisplayName("Birth Date")]
         [DataType(DataType.Date)]
+        [DateRange(MinValue = "01/01/1900", MaxValue = "12/31/9999", ErrorMessage = "Date must be between {0} and {2}.")]
         public DateTime? BirthDate { get; set; }
 
         public Gender Gender { get; set; }

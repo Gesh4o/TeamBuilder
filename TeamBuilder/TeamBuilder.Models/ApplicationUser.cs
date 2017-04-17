@@ -1,7 +1,6 @@
 ﻿namespace TeamBuilder.Models
 {
     using System;
-    using System.ComponentModel.DataAnnotations.Schema;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
@@ -17,8 +16,7 @@
 
     public class ApplicationUser : IdentityUser
     {
-        [Column(TypeName = "datetime2")]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; }
 
         public Gender Gender { get; set; }
 
