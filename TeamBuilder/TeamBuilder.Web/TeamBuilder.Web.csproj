@@ -181,10 +181,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\Identity\ApplicationSignInManager.cs" />
+    <Compile Include="App_Start\Identity\ApplicationUserManager.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
+    <Compile Include="App_Start\Identity\EmailService.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\Identity\SmsService.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -192,9 +195,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -271,7 +271,22 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <ProjectReference Include="..\TeamBuilder.Common\TeamBuilder.Common.csproj">
+      <Project>{bfb3c241-89a3-4f07-8743-8dc50c3e9e47}</Project>
+      <Name>TeamBuilder.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Data\TeamBuilder.Data.csproj">
+      <Project>{4B253F06-B1F4-407F-8160-3CF8891FA511}</Project>
+      <Name>TeamBuilder.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Models\TeamBuilder.Models.csproj">
+      <Project>{01F892C3-DAC7-4078-BFC6-FD5EF3A6BDBE}</Project>
+      <Name>TeamBuilder.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Services\TeamBuilder.Services.csproj">
+      <Project>{15b83e02-74b5-43d5-8f80-4fc58df0cd7d}</Project>
+      <Name>TeamBuilder.Services</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
