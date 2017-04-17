@@ -9,11 +9,11 @@
 
         public int Id { get; set; }
 
-        public int SenderUserId { get; set; }
+        public string SenderUserId { get; set; }
 
         public virtual ApplicationUser SenderUser { get; set; }
 
-        public int InvitedUserId { get; set; }
+        public string InvitedUserId { get; set; }
 
         public virtual ApplicationUser InvitedUser { get; set; }
 
