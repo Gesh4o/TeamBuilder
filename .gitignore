@@ -252,5 +252,5 @@ paket-files/
 *.sln.iml
 
 # Javascript libraries
-Sripts/*.js
-Sripts/*.map
+Scripts/*.js
+Scripts/*.map
