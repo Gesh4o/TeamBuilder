@@ -27,7 +27,7 @@
 
         [DisplayName("Birth Date")]
         [DataType(DataType.Date)]
-        [DateRange(MinValue = "01/01/1900", MaxValue = "12/31/9999", ErrorMessage = "Date must be between {0} and {2}.")]
+        [DateRange(MinValue = "01/01/1900", MaxValue = "12/31/9999", ErrorMessage = "Date must be after {0}.")]
         public DateTime? BirthDate { get; set; }
 
         public Gender Gender { get; set; }
