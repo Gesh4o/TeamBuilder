@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("TeamBuilder.Data")]
+[assembly: AssemblyTitle("TeamBuilder.Web")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("by adguard")]
-[assembly: AssemblyProduct("TeamBuilder.Data")]
+[assembly: AssemblyProduct("TeamBuilder.Web")]
 [assembly: AssemblyCopyright("Copyright © by adguard 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("4b253f06-b1f4-407f-8160-3cf8891fa511")]
+[assembly: Guid("d0b1ed60-6235-4472-bfb8-4e0416930bc8")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -28,8 +28,7 @@ using System.Runtime.InteropServices;
 //      Build Number
 //      Revision
 //
-// You can specify all the values or you can default the Build and Revision Numbers
+// You can specify all the values or you can default the Revision and Build Numbers
 // by using the '*' as shown below:
-// [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]

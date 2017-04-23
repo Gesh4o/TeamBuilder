@@ -5,7 +5,7 @@
 
     using Microsoft.AspNet.Identity.EntityFramework;
 
-    using TeamBuilder.Data.Configuration;
+    using TeamBuilder.Data.Configurations;
     using TeamBuilder.Models;
 
     public class TeamBuilderContext : IdentityDbContext<ApplicationUser>
@@ -14,6 +14,8 @@
             : base("TeamBuilder", throwIfV1Schema: false)
         {
         }
+
+        //public DbSet<Team> Teams { get; set; }
 
         public static TeamBuilderContext Create()
         {

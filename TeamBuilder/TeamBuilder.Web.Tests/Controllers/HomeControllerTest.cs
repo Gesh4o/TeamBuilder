@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using TeamBuilder.Web;
-using TeamBuilder.Web.Controllers;
-
-namespace TeamBuilder.Web.Tests.Controllers
+﻿namespace TeamBuilder.Web.Tests.Controllers
 {
+    using System.Web.Mvc;
+
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
+
+    using TeamBuilder.Web.Controllers;
+
     [TestClass]
     public class HomeControllerTest
     {

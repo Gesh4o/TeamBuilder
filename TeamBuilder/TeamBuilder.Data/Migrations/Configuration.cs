@@ -2,11 +2,11 @@ namespace TeamBuilder.Data.Migrations
 {
     using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<TeamBuilderContext>
+    public sealed class Configuration : DbMigrationsConfiguration<TeamBuilderContext>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "TeamBuilder.Data.TeamBuilderContext";
         }
 

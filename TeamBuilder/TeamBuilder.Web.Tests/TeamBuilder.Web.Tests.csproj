@@ -91,9 +91,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeamBuilder.Web\TeamBuilder.Web.csproj">
+    <ProjectReference Include="..\TeamBuilder.Clients.Web\TeamBuilder.Clients.Web.csproj">
       <Project>{6256F197-1E29-40C8-AD30-9132E966E1B0}</Project>
-      <Name>TeamBuilder.Web</Name>
+      <Name>TeamBuilder.Clients.Web</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
