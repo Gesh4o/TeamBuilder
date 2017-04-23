@@ -14,7 +14,7 @@
 
     using TeamBuilder.Clients.Infrastructure.Identity;
     using TeamBuilder.Clients.Models.Account;
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     [Authorize]
     public class AccountController : Controller

@@ -1,4 +1,4 @@
-﻿namespace TeamBuilder.Models
+﻿namespace TeamBuilder.Data.Models
 {
     using System;
     using System.Collections.Generic;

@@ -1,4 +1,4 @@
-﻿namespace TeamBuilder.Models
+﻿namespace TeamBuilder.Data.Models
 {
     public enum Sender
     {

@@ -8,7 +8,7 @@ namespace TeamBuilder.Clients.Infrastructure.Identity
     using Microsoft.Owin;
 
     using TeamBuilder.Data;
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     public class ApplicationUserManager : UserManager<ApplicationUser>
     {

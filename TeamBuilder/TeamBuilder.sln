@@ -27,6 +27,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Data.Models", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Services.Data", "TeamBuilder.Services.Data\TeamBuilder.Services.Data.csproj", "{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Services.Common", "TeamBuilder.Services.Common\TeamBuilder.Services.Common.csproj", "{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Clients.Common", "TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj", "{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -65,6 +69,14 @@ Global
 		{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -78,5 +90,7 @@ Global
 		{6256F197-1E29-40C8-AD30-9132E966E1B0} = {71B6379A-0A73-4F58-9052-6476D535DC53}
 		{01F892C3-DAC7-4078-BFC6-FD5EF3A6BDBE} = {EF624642-B0B9-4884-B5A9-6B6345B195CE}
 		{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D} = {869ACC6D-9727-45F4-A983-FA564664ED67}
+		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9} = {869ACC6D-9727-45F4-A983-FA564664ED67}
+		{FEFED12A-52E8-4A93-89AD-F5C06FFD8549} = {71B6379A-0A73-4F58-9052-6476D535DC53}
 	EndGlobalSection
 EndGlobal

@@ -7,7 +7,7 @@ namespace TeamBuilder.Clients.Infrastructure.Identity
     using Microsoft.Owin;
     using Microsoft.Owin.Security;
 
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     public class ApplicationSignInManager : SignInManager<ApplicationUser, string>
     {

@@ -5,7 +5,7 @@
     using System.ComponentModel.DataAnnotations;
 
     using TeamBuilder.Clients.Infrastructure.Validation.Attributes;
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     public class RegisterViewModel
     {

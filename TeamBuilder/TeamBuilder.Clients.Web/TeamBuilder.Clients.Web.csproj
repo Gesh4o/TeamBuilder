@@ -116,6 +116,9 @@
       <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+    </Reference>
     <Reference Include="Ninject.Web.Common, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
       <HintPath>..\packages\Ninject.Web.Common.3.2.3.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
       <Private>True</Private>
@@ -206,11 +209,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\MapperWebConfig.cs" />
-    <Compile Include="App_Start\NinjectWebCommon.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Config\BundleConfig.cs" />
+    <Compile Include="Config\FilterConfig.cs" />
+    <Compile Include="Config\MapperWebConfig.cs" />
+    <Compile Include="Config\NinjectWebCommon.cs" />
+    <Compile Include="Config\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -299,6 +302,10 @@
     <Content Include="Views\Team\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
+      <Project>{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}</Project>
+      <Name>TeamBuilder.Clients.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TeamBuilder.Clients.Infrastructure\TeamBuilder.Clients.Infrastructure.csproj">
       <Project>{19D5A1C3-359A-467F-8AE8-A7C1A6976903}</Project>
       <Name>TeamBuilder.Clients.Infrastructure</Name>
@@ -314,6 +321,14 @@
     <ProjectReference Include="..\TeamBuilder.Data\TeamBuilder.Data.csproj">
       <Project>{4B253F06-B1F4-407F-8160-3CF8891FA511}</Project>
       <Name>TeamBuilder.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Services.Common\TeamBuilder.Services.Common.csproj">
+      <Project>{6C43E67F-BBE5-47E9-8892-19EB2770A5B9}</Project>
+      <Name>TeamBuilder.Services.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Services.Data\TeamBuilder.Services.Data.csproj">
+      <Project>{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}</Project>
+      <Name>TeamBuilder.Services.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

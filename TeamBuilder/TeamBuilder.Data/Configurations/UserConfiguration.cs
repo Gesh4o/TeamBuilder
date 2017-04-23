@@ -2,7 +2,7 @@
 {
     using System.Data.Entity.ModelConfiguration;
 
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     public class UserConfiguration : EntityTypeConfiguration<ApplicationUser>
     {

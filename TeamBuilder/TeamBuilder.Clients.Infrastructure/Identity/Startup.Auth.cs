@@ -10,7 +10,7 @@
     using Owin;
 
     using TeamBuilder.Data;
-    using TeamBuilder.Models;
+    using TeamBuilder.Data.Models;
 
     public class StartupAuth
     {
