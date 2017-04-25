@@ -62,15 +62,15 @@
     <Compile Include="Implementations\TeamService.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeamBuilder.Clients.Models\TeamBuilder.Clients.Models.csproj">
+    <ProjectReference Include="..\..\Clients\TeamBuilder.Clients.Models\TeamBuilder.Clients.Models.csproj">
       <Project>{ED6DD932-B8EE-4B03-82C0-48E9069E4050}</Project>
       <Name>TeamBuilder.Clients.Models</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamBuilder.Data\TeamBuilder.Data.csproj">
+    <ProjectReference Include="..\..\Data\TeamBuilder.Data\TeamBuilder.Data.csproj">
       <Project>{4b253f06-b1f4-407f-8160-3cf8891fa511}</Project>
       <Name>TeamBuilder.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\TeamBuilder.Data.Models\TeamBuilder.Data.Models.csproj">
+    <ProjectReference Include="..\..\Data\TeamBuilder.Data.Models\TeamBuilder.Data.Models.csproj">
       <Project>{01f892c3-dac7-4078-bfc6-fd5ef3a6bdbe}</Project>
       <Name>TeamBuilder.Data.Models</Name>
     </ProjectReference>

@@ -99,10 +99,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
-      <Project>{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}</Project>
-      <Name>TeamBuilder.Clients.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TeamBuilder.Clients.Infrastructure\TeamBuilder.Clients.Infrastructure.csproj">
       <Project>{19D5A1C3-359A-467F-8AE8-A7C1A6976903}</Project>
       <Name>TeamBuilder.Clients.Infrastructure</Name>
