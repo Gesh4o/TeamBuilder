@@ -252,6 +252,6 @@ paket-files/
 *.sln.iml
 
 # Javascript libraries
-TeamBuilder/TeamBuilder.Web/Scripts/*.js
-TeamBuilder/TeamBuilder.Web/Scripts/*.map
+**/Scripts/*.js
+**/Scripts/*.map
 
