@@ -30,6 +30,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
+    </Reference>
+    <Reference Include="FluentValidation, Version=6.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.6.4.1\lib\Net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -46,6 +52,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -93,6 +100,7 @@
     <Compile Include="Team\TeamAddBindingModel.cs" />
     <Compile Include="Team\TeamDetailsViewModel.cs" />
     <Compile Include="Team\TeamEditBindingModel.cs" />
+    <Compile Include="Team\Validation\TeamAdditionValidator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -102,10 +110,6 @@
     <ProjectReference Include="..\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
       <Project>{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}</Project>
       <Name>TeamBuilder.Clients.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TeamBuilder.Clients.Infrastructure\TeamBuilder.Clients.Infrastructure.csproj">
-      <Project>{19D5A1C3-359A-467F-8AE8-A7C1A6976903}</Project>
-      <Name>TeamBuilder.Clients.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\TeamBuilder.Data.Models\TeamBuilder.Data.Models.csproj">
       <Project>{01F892C3-DAC7-4078-BFC6-FD5EF3A6BDBE}</Project>

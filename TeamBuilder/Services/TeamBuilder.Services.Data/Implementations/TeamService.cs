@@ -10,15 +10,19 @@
     using TeamBuilder.Data;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common;
+    using TeamBuilder.Services.Common.Utilities;
     using TeamBuilder.Services.Data.Contracts;
 
     public class TeamService : ITeamService
     {
         private readonly TeamBuilderContext context;
 
-        public TeamService(TeamBuilderContext context)
+        private readonly IFileService fileService;
+
+        public TeamService(TeamBuilderContext context, IFileService fileService)
         {
             this.context = context;
+            this.fileService = fileService;
         }
 
         public bool IsTeamExisting(TeamAddBindingModel team)
@@ -37,9 +41,17 @@
             return team;
         }
 
-        public Team Add(TeamAddBindingModel teamBindingModel)
+        public Team Add(TeamAddBindingModel teamBindingModel, string creatorId)
         {
             Team team = Mapper.Instance.Map<Team>(teamBindingModel);
+            team.CreatorId = creatorId;
+            if (teamBindingModel.Image != null)
+            {
+                team.ImageFileName = this.fileService.Upload(teamBindingModel.Image.InputStream);
+            }
+
+            this.context.Teams.Add(team);
+            this.context.SaveChanges();
 
             return team;
         }
@@ -72,6 +84,16 @@
             team.IsDeleted = true;
 
             this.context.SaveChanges();
+        }
+
+        public string GetPictureAsBase64(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return string.Empty;
+            }
+
+            return FileUtilities.ConvertByteArrayToImageUrl(this.fileService.Download(filePath));
         }
     }
 }

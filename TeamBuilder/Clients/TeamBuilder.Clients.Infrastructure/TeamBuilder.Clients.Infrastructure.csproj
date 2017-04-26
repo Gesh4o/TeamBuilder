@@ -36,6 +36,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FluentValidation, Version=6.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\FluentValidation.6.4.1\lib\Net45\FluentValidation.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
     </Reference>
@@ -80,7 +83,6 @@
     <Compile Include="Identity\SmsService.cs" />
     <Compile Include="Identity\Startup.Auth.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Validation\Attributes\DateRangeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -94,6 +96,10 @@
     <ProjectReference Include="..\..\Data\TeamBuilder.Data\TeamBuilder.Data.csproj">
       <Project>{4b253f06-b1f4-407f-8160-3cf8891fa511}</Project>
       <Name>TeamBuilder.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
+      <Project>{fefed12a-52e8-4a93-89ad-f5c06ffd8549}</Project>
+      <Name>TeamBuilder.Clients.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

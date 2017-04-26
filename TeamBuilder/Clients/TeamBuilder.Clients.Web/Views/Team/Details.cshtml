@@ -1,4 +1,4 @@
-﻿@model TeamBuilder.Common.ViewModels.Team.TeamDetailsViewModel
+﻿@model TeamBuilder.Clients.Models.Team.TeamDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -32,6 +32,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Acronym)
+        </dd>
+        
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageContent)
+        </dt>
+        
+        <dd>
+            <img src="@Model.ImageContent" alt="@Model.Name's Logo" />
         </dd>
     </dl>
 </div>

@@ -20,7 +20,8 @@ namespace TeamBuilder.Web
     using TeamBuilder.Clients.Common;
     using TeamBuilder.Data;
     using TeamBuilder.Data.Models;
-    using TeamBuilder.Services.Common;
+    using TeamBuilder.Services.Common.Contracts;
+    using TeamBuilder.Services.Data.Contracts;
     using TeamBuilder.Services.Data.Implementations;
 
     public static class NinjectWebCommon 
@@ -62,6 +63,7 @@ namespace TeamBuilder.Web
             kernel.Bind<DbContext>().To<TeamBuilderContext>().InRequestScope();
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
             kernel.Bind<IRoleStore<IdentityRole>>().To<TeamBuilderRoleStore>().InRequestScope();
+            kernel.Bind<IFileService>().To<DropboxService>();
             
             kernel.Bind(k => k
                 .From(ServerConstants.DataServicesAssembly)

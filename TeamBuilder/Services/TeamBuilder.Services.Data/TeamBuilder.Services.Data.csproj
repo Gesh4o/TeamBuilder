@@ -33,6 +33,9 @@
     <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="Dropbox.Api, Version=4.0.0.0, Culture=neutral, PublicKeyToken=310f0e82fbb45d01, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Dropbox.Api.4.2.5\lib\net45\Dropbox.Api.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -45,9 +48,14 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,12 +64,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IFileService.cs" />
     <Compile Include="Contracts\ITeamService.cs" />
+    <Compile Include="Implementations\DropboxService.cs" />
     <Compile Include="Implementations\TeamBuilderRoleStore.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Implementations\TeamService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Clients\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
+      <Project>{FEFED12A-52E8-4A93-89AD-F5C06FFD8549}</Project>
+      <Name>TeamBuilder.Clients.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Clients\TeamBuilder.Clients.Models\TeamBuilder.Clients.Models.csproj">
       <Project>{ED6DD932-B8EE-4B03-82C0-48E9069E4050}</Project>
       <Name>TeamBuilder.Clients.Models</Name>

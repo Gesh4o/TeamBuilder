@@ -3,10 +3,13 @@
     using System.Net;
     using System.Web.Mvc;
 
+    using Microsoft.AspNet.Identity;
+
     using TeamBuilder.Clients.Models.Team;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
 
+    [Authorize]
     public class TeamController : Controller
     {
         private readonly ITeamService teamService;
@@ -17,6 +20,7 @@
         }
 
         // GET: Team/Details/5
+        [AllowAnonymous]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -30,6 +34,8 @@
                 return this.HttpNotFound();
             }
 
+            teamViewModel.ImageContent = this.teamService.GetPictureAsBase64(teamViewModel.ImageFileName);
+
             return this.View(teamViewModel);
         }
 
@@ -42,7 +48,7 @@
         // POST: Team/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Name,Description,Acronym")] TeamAddBindingModel teamBindingModel)
+        public ActionResult Create([Bind(Include = "Name,Description,Acronym,Image")] TeamAddBindingModel teamBindingModel)
         {
             if (ModelState.IsValid)
             {
@@ -52,7 +58,8 @@
                     return this.View(teamBindingModel);
                 }
 
-                Team team = this.teamService.Add(teamBindingModel);
+                Team team = this.teamService.Add(teamBindingModel, this.User.Identity.GetUserId());
+                
                 return this.RedirectToAction("Details", new { id = team.Id });
             }
 

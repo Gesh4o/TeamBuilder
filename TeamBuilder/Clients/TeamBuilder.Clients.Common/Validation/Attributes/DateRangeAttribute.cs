@@ -1,4 +1,4 @@
-﻿namespace TeamBuilder.Clients.Infrastructure.Validation.Attributes
+﻿namespace TeamBuilder.Clients.Common.Validation.Attributes
 {
     using System;
     using System.ComponentModel.DataAnnotations;
