@@ -255,3 +255,6 @@ paket-files/
 **/Scripts/*.js
 **/Scripts/*.map
 
+# Security configurations
+**/security.config
+**/ConnectionStrings.config
