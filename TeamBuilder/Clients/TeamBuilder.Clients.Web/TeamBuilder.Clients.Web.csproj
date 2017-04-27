@@ -324,6 +324,10 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Data\TeamBuilder.Data.Common\TeamBuilder.Data.Common.csproj">
+      <Project>{F11FD5D8-4E5C-4201-88D6-667E9CD144A0}</Project>
+      <Name>TeamBuilder.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\TeamBuilder.Data.Models\TeamBuilder.Data.Models.csproj">
       <Project>{01F892C3-DAC7-4078-BFC6-FD5EF3A6BDBE}</Project>
       <Name>TeamBuilder.Data.Models</Name>

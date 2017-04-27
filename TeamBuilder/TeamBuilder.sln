@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Services.Data",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Web.Tests", "Tests\TeamBuilder.Web.Tests\TeamBuilder.Web.Tests.csproj", "{4165ED99-593F-4213-897E-D0332634866D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamBuilder.Data.Tests", "Tests\TeamBuilder.Data.Tests\TeamBuilder.Data.Tests.csproj", "{7FA7F8DF-A7B1-4084-943F-95308287E48F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{4165ED99-593F-4213-897E-D0332634866D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4165ED99-593F-4213-897E-D0332634866D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4165ED99-593F-4213-897E-D0332634866D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7FA7F8DF-A7B1-4084-943F-95308287E48F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7FA7F8DF-A7B1-4084-943F-95308287E48F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7FA7F8DF-A7B1-4084-943F-95308287E48F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7FA7F8DF-A7B1-4084-943F-95308287E48F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -92,5 +98,6 @@ Global
 		{6C43E67F-BBE5-47E9-8892-19EB2770A5B9} = {869ACC6D-9727-45F4-A983-FA564664ED67}
 		{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D} = {869ACC6D-9727-45F4-A983-FA564664ED67}
 		{4165ED99-593F-4213-897E-D0332634866D} = {11EAB56D-9F96-4EB9-8BE0-5B26440D736D}
+		{7FA7F8DF-A7B1-4084-943F-95308287E48F} = {11EAB56D-9F96-4EB9-8BE0-5B26440D736D}
 	EndGlobalSection
 EndGlobal

@@ -16,5 +16,7 @@
         public const string RangeErrorMessage = "The {0} field must be between {1} and {2}";
         public const string MinLengthErrorMessage = "The {0} field must be at least {1} characters long";
         public const string MaxLengthErrorMessage = "The {0} field cannot be more than {1} characters long";
+        public const string ModelInvalidErrorMessage = "Insertion failed. Model not valid!";
+
     }
 }

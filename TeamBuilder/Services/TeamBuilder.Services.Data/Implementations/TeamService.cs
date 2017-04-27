@@ -1,13 +1,11 @@
 ﻿namespace TeamBuilder.Services.Data.Implementations
 {
     using System;
-    using System.Linq;
 
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
 
     using TeamBuilder.Clients.Models.Team;
-    using TeamBuilder.Data;
+    using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common;
     using TeamBuilder.Services.Common.Utilities;
@@ -15,28 +13,25 @@
 
     public class TeamService : ITeamService
     {
-        private readonly TeamBuilderContext context;
-
         private readonly IFileService fileService;
 
-        public TeamService(TeamBuilderContext context, IFileService fileService)
+        private readonly ITeamRepository teamRepository;
+
+        public TeamService(ITeamRepository teamRepository, IFileService fileService)
         {
-            this.context = context;
+            this.teamRepository = teamRepository;
             this.fileService = fileService;
         }
 
         public bool IsTeamExisting(TeamAddBindingModel team)
         {
-            return this.context.Teams.Any(t => t.Name == team.Name);
+            return this.teamRepository.IsExisting(t => t.Name == team.Name);
         }
 
         public TTeamProjection Find<TTeamProjection>(int id)
         {
-            TTeamProjection team = this.context.Teams
-                .Where(t => t.Id == id)
-                .AsQueryable()
-                .ProjectTo<TTeamProjection>()
-                .SingleOrDefault();
+            TTeamProjection team = this.teamRepository
+                .SingleOrDefault<TTeamProjection>(t => t.Id == id);
 
             return team;
         }
@@ -50,15 +45,14 @@
                 team.ImageFileName = this.fileService.Upload(teamBindingModel.Image.InputStream);
             }
 
-            this.context.Teams.Add(team);
-            this.context.SaveChanges();
+            this.teamRepository.Add(team);
 
             return team;
         }
 
         public void Edit(TeamEditBindingModel teamBindingModel)
         {
-            Team team = this.context.Teams.Find(teamBindingModel.Id);
+            Team team = this.Find<Team>(teamBindingModel.Id);
 
             if (team == null)
             {
@@ -69,12 +63,12 @@
             team.Acronym = teamBindingModel.Acronym;
             team.Description = teamBindingModel.Description;
 
-            this.context.SaveChanges();
+            this.teamRepository.Update(team);
         }
 
         public void Disband(int id)
         {
-            Team team = this.context.Teams.Find(id);
+            Team team = this.Find<Team>(id);
 
             if (team == null)
             {
@@ -82,8 +76,7 @@
             }
 
             team.IsDeleted = true;
-
-            this.context.SaveChanges();
+            this.teamRepository.Update(team);
         }
 
         public string GetPictureAsBase64(string filePath)

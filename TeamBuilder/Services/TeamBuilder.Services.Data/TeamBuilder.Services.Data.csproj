@@ -80,6 +80,10 @@
       <Project>{ED6DD932-B8EE-4B03-82C0-48E9069E4050}</Project>
       <Name>TeamBuilder.Clients.Models</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\Data\TeamBuilder.Data.Common\TeamBuilder.Data.Common.csproj">
+      <Project>{F11FD5D8-4E5C-4201-88D6-667E9CD144A0}</Project>
+      <Name>TeamBuilder.Data.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Data\TeamBuilder.Data\TeamBuilder.Data.csproj">
       <Project>{4b253f06-b1f4-407f-8160-3cf8891fa511}</Project>
       <Name>TeamBuilder.Data</Name>

@@ -19,6 +19,7 @@ namespace TeamBuilder.Web
 
     using TeamBuilder.Clients.Common;
     using TeamBuilder.Data;
+    using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common.Contracts;
     using TeamBuilder.Services.Data.Contracts;
@@ -64,12 +65,20 @@ namespace TeamBuilder.Web
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
             kernel.Bind<IRoleStore<IdentityRole>>().To<TeamBuilderRoleStore>().InRequestScope();
             kernel.Bind<IFileService>().To<DropboxService>();
-            
-            kernel.Bind(k => k
-                .From(ServerConstants.DataServicesAssembly)
-                .SelectAllClasses()
-                .InheritedFrom<IService>()
-                .BindDefaultInterface());
+
+            kernel.Bind(
+                k =>
+                    k.From(ServerConstants.DataServicesAssembly)
+                        .SelectAllClasses()
+                        .InheritedFrom<IService>()
+                        .BindDefaultInterface());
+
+            kernel.Bind(
+                k =>
+                    k.From(ServerConstants.DataRepositoryAssembly)
+                        .SelectAllClasses()
+                        .Where(type => type.Name.Contains("Repository"))
+                        .BindDefaultInterface());
         }        
     }
 }
