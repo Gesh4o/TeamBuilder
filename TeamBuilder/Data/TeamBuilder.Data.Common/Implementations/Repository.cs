@@ -23,42 +23,30 @@
 
         public TProjection SingleOrDefault<TProjection>(Expression<Func<T, bool>> condition, string include = "")
         {
-            IQueryable<T> query = this.Context.Set<T>().Where(condition);
-
-            if (!string.IsNullOrEmpty(include))
-            {
-                foreach (string property in include.Split(',').Select(prop => prop.Trim()))
-                {
-                    query = query.Include(property);
-                }
-            }
+            IQueryable<T> query = this.BuildQuery(condition, include);
 
             return query.ProjectTo<TProjection>().SingleOrDefault();
         }
 
         public T SingleOrDefault(Expression<Func<T, bool>> condition, string include = "")
         {
-            return this.SingleOrDefault<T>(condition, include);
+            IQueryable<T> query = this.BuildQuery(condition, include);
+
+            return query.SingleOrDefault();
         }
 
         public IEnumerable<TProjection> GetAll<TProjection>(Expression<Func<T, bool>> condition, string include = "")
         {
-            IQueryable<T> query = this.Context.Set<T>().Where(condition);
-
-            if (!string.IsNullOrEmpty(include))
-            {
-                foreach (string property in include.Split(',').Select(prop => prop.Trim()))
-                {
-                    query = query.Include(property);
-                }
-            }
+            IQueryable<T> query = this.BuildQuery(condition, include);
 
             return query.ProjectTo<TProjection>();
         }
 
         public IEnumerable<T> GetAll(Expression<Func<T, bool>> condition, string include = "")
         {
-            return this.GetAll<T>(condition, include);
+            IQueryable<T> query = this.BuildQuery(condition, include);
+
+            return query;
         }
 
         public bool IsExisting(Expression<Func<T, bool>> condition)
@@ -107,6 +95,21 @@
         public bool IsEntityValid(T entity)
         {
             return this.Context.Entry(entity).GetValidationResult().IsValid;
+        }
+
+        private IQueryable<T> BuildQuery(Expression<Func<T, bool>> condition, string include)
+        {
+            IQueryable<T> query = this.Context.Set<T>().Where(condition);
+
+            if (!string.IsNullOrEmpty(include))
+            {
+                foreach (string property in include.Split(',').Select(prop => prop.Trim()))
+                {
+                    query = query.Include(property);
+                }
+            }
+
+            return query;
         }
     }
 }
