@@ -88,6 +88,7 @@
             }
 
             T removedEntity = this.Context.Set<T>().Remove(entity);
+            this.Context.SaveChanges();
 
             return removedEntity;
         }

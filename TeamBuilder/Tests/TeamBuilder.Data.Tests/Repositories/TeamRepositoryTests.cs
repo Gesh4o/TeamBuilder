@@ -1,6 +1,7 @@
 ﻿namespace TeamBuilder.Data.Tests.Repositories
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Data.Entity;
     using System.Linq;
 
@@ -67,10 +68,7 @@
 
             Assert.IsNotNull(actualTeam, "Addition of team failed - team not added.");
 
-            Assert.AreEqual(expectedTeam.Name, actualTeam.Name);
-            Assert.AreEqual(expectedTeam.Acronym, actualTeam.Acronym);
-            Assert.AreEqual(expectedTeam.CreatorId, actualTeam.CreatorId);
-            Assert.AreEqual(expectedTeam.Description, actualTeam.Description);
+            CompareTeams(expectedTeam, actualTeam);
         }
 
         [Test]
@@ -85,14 +83,10 @@
                 ImageFileName = null
             };
 
-            Team returnedTeam = this.teamRepository.Add(expectedTeam);
+            Team actualTeam = this.teamRepository.Add(expectedTeam);
 
-            Assert.IsNotNull(returnedTeam, "The returned team is not valid!");
-
-            Assert.AreEqual(expectedTeam.Name, returnedTeam.Name);
-            Assert.AreEqual(expectedTeam.Acronym, returnedTeam.Acronym);
-            Assert.AreEqual(expectedTeam.CreatorId, returnedTeam.CreatorId);
-            Assert.AreEqual(expectedTeam.Description, returnedTeam.Description);
+            Assert.IsNotNull(actualTeam, "The returned team is not valid!");
+            CompareTeams(expectedTeam, actualTeam);
         }
 
         [Test]
@@ -113,20 +107,106 @@
 
             Assert.IsNotNull(actualTeam, "Addition of team failed - team not added.");
 
+            CompareTeams(expectedTeam, actualTeam);
+        }
+
+        [Test]
+        public void AddTeam_WithInvalidName_Should_ThrowException()
+        {
+            Team team = new Team
+            {
+                Name = GenerateRandomString(NameLength),
+                Acronym = GenerateRandomString(AcronymLength + 5),
+                CreatorId = this.currentUser.Id,
+                Description = GenerateRandomString(DescriptionLength),
+                ImageFileName = null
+            };
+
+            Assert.Throws<ValidationException>(
+                () =>
+                    {
+                        this.teamRepository.Add(team);
+                    });
+        }
+
+        /// <summary>
+        /// Test should be moved when testing the service.
+        /// </summary>
+        [Test]
+        public void AddTeam_WithProperDataTwice_Should_ThrowException()
+        {
+            Team team = new Team
+            {
+                Name = GenerateRandomString(NameLength),
+                Acronym = GenerateRandomString(AcronymLength),
+                CreatorId = this.currentUser.Id,
+                Description = GenerateRandomString(DescriptionLength),
+                ImageFileName = null
+            };
+
+            this.teamRepository.Add(team);
+
+            Assert.Throws<ValidationException>(
+                () =>
+                {
+                    this.teamRepository.Add(team);
+                });
+        }
+
+        [Test]
+        public void EditTeam_Should_ReturnUpdatedEntity_And_UpdateEntityInDatabase()
+        {
+            Team expectedTeam = new Team
+            {
+                Name = GenerateRandomString(NameLength),
+                Acronym = GenerateRandomString(AcronymLength),
+                CreatorId = this.currentUser.Id,
+                Description = GenerateRandomString(DescriptionLength),
+                ImageFileName = null
+            };
+
+            this.teamRepository.Add(expectedTeam);
+
+            expectedTeam.IsDeleted = true;
+            bool hasDeleted = this.teamRepository.Update(expectedTeam);
+            Team actualTeam = this.teamRepository.SingleOrDefault(t => t.Id == expectedTeam.Id);
+            
+            Assert.IsTrue(hasDeleted);
+            Assert.IsNotNull(actualTeam);
+            Assert.IsTrue(actualTeam.IsDeleted);
+
+            CompareTeams(expectedTeam, actualTeam);
+        }
+
+        [Test]
+        public void DeleteTeam_Should_ReturnSameEntity_And_DeleteIt()
+        {
+            Team expectedTeam = new Team
+            {
+                Name = GenerateRandomString(NameLength),
+                Acronym = GenerateRandomString(AcronymLength),
+                CreatorId = this.currentUser.Id,
+                Description = GenerateRandomString(DescriptionLength),
+                ImageFileName = null
+            };
+
+            this.teamRepository.Add(expectedTeam);
+            Team actualTeam = this.teamRepository.Delete(expectedTeam);
+
+            Team reloadedTEam = this.teamRepository.SingleOrDefault(t => t.Id == expectedTeam.Id);
+
+            Assert.IsNotNull(actualTeam);
+            Assert.IsNull(reloadedTEam);
+
+            CompareTeams(expectedTeam, actualTeam);
+        }
+
+        private static void CompareTeams(Team expectedTeam, Team actualTeam)
+        {
             Assert.AreEqual(expectedTeam.Name, actualTeam.Name);
             Assert.AreEqual(expectedTeam.Acronym, actualTeam.Acronym);
             Assert.AreEqual(expectedTeam.CreatorId, actualTeam.CreatorId);
             Assert.AreEqual(expectedTeam.Description, actualTeam.Description);
-        }
-
-        [Test]
-        public void EditTeam_Should_UpdateEntity()
-        {
-        }
-
-        [Test]
-        public void DeleteTeam_Should_UpdateEntity()
-        {
         }
 
         private static string GenerateRandomString(int length)

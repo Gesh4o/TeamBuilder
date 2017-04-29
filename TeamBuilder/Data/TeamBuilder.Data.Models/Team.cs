@@ -3,8 +3,13 @@
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
+    /// <summary>
+    /// Represents combined unit which can participate in <see cref="Event"/> and
+    /// is formed/created by <see cref="ApplicationUser"/>.
+    /// </summary>
     public class Team
     {
+        
         public Team()
         {
             this.Members = new List<UserTeam>();
