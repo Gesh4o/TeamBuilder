@@ -1,6 +1,9 @@
 ﻿namespace TeamBuilder.Clients.Models.Team
 {
-    public class TeamEditBindingModel
+    using TeamBuilder.Clients.Common.Mappings;
+    using TeamBuilder.Data.Models;
+
+    public class TeamEditBindingModel : IMapFrom<Team>
     {
         public int Id { get; set; }
 

@@ -74,7 +74,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Team team = this.teamService.Find<Team>(id.Value);
+            TeamEditBindingModel team = this.teamService.Find<TeamEditBindingModel>(id.Value);
             if (team == null)
             {
                 return this.HttpNotFound();
@@ -86,7 +86,7 @@
         // POST: Team/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Name,Description,Acronym")] TeamEditBindingModel teamBindingModel)
+        public ActionResult Edit([Bind(Include = "Id,Name,Description,Acronym")] TeamEditBindingModel teamBindingModel)
         {
             if (ModelState.IsValid)
             {
@@ -106,7 +106,7 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Team team = this.teamService.Find<Team>(id.Value);
+            Team team = this.teamService.Find(id.Value);
             if (team == null)
             {
                 return this.HttpNotFound();
@@ -120,7 +120,7 @@
         [ValidateAntiForgeryToken]
         public ActionResult DisbandConfirmed(int id)
         {
-            Team team = this.teamService.Find<Team>(id);
+            Team team = this.teamService.Find(id);
             if (team == null)
             {
                 return this.HttpNotFound();

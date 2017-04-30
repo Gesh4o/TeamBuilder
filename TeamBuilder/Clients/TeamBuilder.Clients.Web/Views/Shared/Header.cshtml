@@ -1,0 +1,74 @@
+﻿@if (!this.User.Identity.IsAuthenticated)
+{
+    <header id="header" class="header">
+        <div class="container">
+            <h1 class="logo pull-left">
+                <a class="scrollto" href="#promo">
+                    <span class="logo-title">TeamBuilder</span>
+                </a>
+            </h1>
+            <!--//logo-->
+            <nav id="main-nav" class="main-nav navbar-right" role="navigation">
+                <div class="navbar-header">
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!--//nav-toggle-->
+                </div>
+                <!--//navbar-header-->
+                <div class="navbar-collapse collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active nav-item sr-only">
+                            <a class="scrollto" href="#promo">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="scrollto" href="#about">About</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="scrollto" href="#docs">Docs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="scrollto" href="#license">License</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="scrollto" href="#contact">Contact</a>
+                        </li>
+                        <li class="nav-item">@Html.ActionLink("Sign in", "Login", "Account")</li>
+                        <li class="nav-item last">@Html.ActionLink("Sign Up", "Register", "Account")</li>
+                    </ul>
+                    <!--//nav-->
+                </div>
+                <!--//navabr-collapse-->
+            </nav>
+            <!--//main-nav-->
+        </div>
+    </header>
+}
+else
+{
+    <header id="logged-header" class="header">
+        <nav class="navbar navbar-logged" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Team Builder", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </nav>
+    </header>
+}

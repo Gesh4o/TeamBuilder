@@ -2,7 +2,6 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
-    using System.Data;
 
     using AutoMapper;
 
@@ -38,6 +37,14 @@
             return team;
         }
 
+        public Team Find(int id)
+        {
+            Team team = this.teamRepository
+                .SingleOrDefault(t => t.Id == id);
+
+            return team;
+        }
+
         public Team Add(TeamAddBindingModel teamBindingModel, string creatorId)
         {
             Team team = Mapper.Instance.Map<Team>(teamBindingModel);
@@ -68,7 +75,7 @@
 
             if (team == null)
             {
-                throw new ArgumentNullException(string.Format(ServicesConstants.EntityNotFound, "Team"));
+                throw new InvalidOperationException(string.Format(ServicesConstants.EntityNotFound, "Team"));
             }
 
             // If name is about to be changed.

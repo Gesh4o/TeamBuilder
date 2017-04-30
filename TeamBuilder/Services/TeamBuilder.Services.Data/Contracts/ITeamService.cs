@@ -10,6 +10,8 @@
 
         TTeamProjection Find<TTeamProjection>(int id);
 
+        Team Find(int id);
+
         Team Add(TeamAddBindingModel teamBindingModel, string creatorId);
 
         void Edit(TeamEditBindingModel teamBindingModel);
