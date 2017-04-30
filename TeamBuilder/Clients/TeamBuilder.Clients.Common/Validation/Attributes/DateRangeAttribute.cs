@@ -23,7 +23,8 @@
                 return new ValidationResult("Date not valid!");
             }
 
-            if (DateTime.Parse(this.MinValue) > castedValue || DateTime.Parse(this.MaxValue) < castedValue)
+            if (DateTime.Parse(this.MinValue) > castedValue || 
+                DateTime.Parse(this.MaxValue) < castedValue)
             {
                 return new ValidationResult($"Date must be after {this.MinValue}.");
             }

@@ -12,6 +12,7 @@
     using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Common.Implementations;
     using TeamBuilder.Data.Models;
+    using TeamBuilder.Tests.Common;
 
     [TestFixture]
     public class TeamRepositoryTests
@@ -55,10 +56,10 @@
         {
             Team expectedTeam = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -76,10 +77,10 @@
         {
             Team expectedTeam = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -94,10 +95,10 @@
         {
             Team expectedTeam = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -115,10 +116,10 @@
         {
             Team team = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength + 5),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength + 5),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -129,39 +130,15 @@
                     });
         }
 
-        /// <summary>
-        /// Test should be moved when testing the service.
-        /// </summary>
-        [Test]
-        public void AddTeam_WithProperDataTwice_Should_ThrowException()
-        {
-            Team team = new Team
-            {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
-                CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
-                ImageFileName = null
-            };
-
-            this.teamRepository.Add(team);
-
-            Assert.Throws<ValidationException>(
-                () =>
-                {
-                    this.teamRepository.Add(team);
-                });
-        }
-
         [Test]
         public void EditTeam_Should_ReturnUpdatedEntity_And_UpdateEntityInDatabase()
         {
             Team expectedTeam = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -183,10 +160,10 @@
         {
             Team expectedTeam = new Team
             {
-                Name = GenerateRandomString(NameLength),
-                Acronym = GenerateRandomString(AcronymLength),
+                Name = Utilities.GenerateRandomString(NameLength),
+                Acronym = Utilities.GenerateRandomString(AcronymLength),
                 CreatorId = this.currentUser.Id,
-                Description = GenerateRandomString(DescriptionLength),
+                Description = Utilities.GenerateRandomString(DescriptionLength),
                 ImageFileName = null
             };
 
@@ -207,12 +184,6 @@
             Assert.AreEqual(expectedTeam.Acronym, actualTeam.Acronym);
             Assert.AreEqual(expectedTeam.CreatorId, actualTeam.CreatorId);
             Assert.AreEqual(expectedTeam.Description, actualTeam.Description);
-        }
-
-        private static string GenerateRandomString(int length)
-        {
-            string result = Guid.NewGuid().ToString().Substring(0, length);
-            return result;
         }
     }
 }

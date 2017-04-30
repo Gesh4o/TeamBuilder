@@ -6,7 +6,7 @@
 
     public interface ITeamService : IService
     {
-        bool IsTeamExisting(TeamAddBindingModel team);
+        bool IsTeamNameTaken(string teamName);
 
         TTeamProjection Find<TTeamProjection>(int id);
 

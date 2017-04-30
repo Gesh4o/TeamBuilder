@@ -52,7 +52,7 @@
         {
             if (ModelState.IsValid)
             {
-                if (this.teamService.IsTeamExisting(teamBindingModel))
+                if (this.teamService.IsTeamNameTaken(teamBindingModel.Name))
                 {
                     ModelState.AddModelError("Name", "Team with same name already exists!");
                     return this.View(teamBindingModel);

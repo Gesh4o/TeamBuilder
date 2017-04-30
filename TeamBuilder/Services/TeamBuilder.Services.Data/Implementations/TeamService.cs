@@ -1,6 +1,8 @@
 ﻿namespace TeamBuilder.Services.Data.Implementations
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.Data;
 
     using AutoMapper;
 
@@ -23,9 +25,9 @@
             this.fileService = fileService;
         }
 
-        public bool IsTeamExisting(TeamAddBindingModel team)
+        public bool IsTeamNameTaken(string teamName)
         {
-            return this.teamRepository.IsExisting(t => t.Name == team.Name);
+            return this.teamRepository.IsExisting(t => t.Name == teamName && t.IsDeleted == false);
         }
 
         public TTeamProjection Find<TTeamProjection>(int id)
@@ -45,6 +47,16 @@
                 team.ImageFileName = this.fileService.Upload(teamBindingModel.Image.InputStream);
             }
 
+            if (this.IsTeamNameTaken(team.Name))
+            {
+                throw new InvalidOperationException(string.Format(ServicesConstants.EntityAlreadyExists, "Team", "name"));
+            }
+
+            if (!this.teamRepository.IsEntityValid(team))
+            {
+                throw new ValidationException(string.Format(ServicesConstants.EntityNotValid, "Team"));
+            }
+
             this.teamRepository.Add(team);
 
             return team;
@@ -52,27 +64,46 @@
 
         public void Edit(TeamEditBindingModel teamBindingModel)
         {
-            Team team = this.Find<Team>(teamBindingModel.Id);
+            Team team = this.teamRepository.SingleOrDefault(t => t.Id == teamBindingModel.Id);
 
             if (team == null)
             {
-                throw new ArgumentNullException(ServicesConstants.TeamNotFound);
+                throw new ArgumentNullException(string.Format(ServicesConstants.EntityNotFound, "Team"));
+            }
+
+            // If name is about to be changed.
+            if (team.Name != teamBindingModel.Name)
+            {
+                if (this.IsTeamNameTaken(teamBindingModel.Name))
+                {
+                    throw new InvalidOperationException(string.Format(ServicesConstants.EntityAlreadyExists, "Team", "name"));
+                }
             }
 
             team.Name = teamBindingModel.Name;
             team.Acronym = teamBindingModel.Acronym;
             team.Description = teamBindingModel.Description;
 
-            this.teamRepository.Update(team);
+            if (!this.teamRepository.IsEntityValid(team))
+            {
+                throw new ValidationException(string.Format(ServicesConstants.EntityNotValid, "Team"));
+            }
+
+            bool hasUpdated = this.teamRepository.Update(team);
+
+            if (!hasUpdated)
+            {
+                throw new InvalidOperationException(string.Format(ServicesConstants.EntityAlreadyExists, "Team", "name"));
+            }
         }
 
         public void Disband(int id)
         {
-            Team team = this.Find<Team>(id);
+            Team team = this.teamRepository.SingleOrDefault(t => t.Id == id);
 
             if (team == null)
             {
-                throw new ArgumentNullException(ServicesConstants.TeamNotFound);
+                throw new InvalidOperationException(string.Format(ServicesConstants.EntityNotFound, "Team"));
             }
 
             team.IsDeleted = true;
