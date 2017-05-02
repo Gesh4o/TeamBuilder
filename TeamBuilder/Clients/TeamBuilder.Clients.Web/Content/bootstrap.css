@@ -2650,7 +2650,7 @@ input[type="search"] {
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
-  position: absolute;
+  /* position: absolute; */
   margin-top: 4px \9;
   margin-left: -20px;
 }

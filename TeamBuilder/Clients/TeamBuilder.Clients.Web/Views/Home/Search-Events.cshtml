@@ -1,0 +1,23 @@
+﻿@using TeamBuilder.Clients.Models.Home
+@model IEnumerable<EventViewModel>
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Users</h2>
+    
+<section class="events">
+    <p>@this.Model.Count() event(s) found.</p>
+
+    @foreach (EventViewModel e in this.Model)
+    {
+        <hr/>
+        <div class="event">
+            <a href="/event/@e.Name">
+                <i class="fa fa-calendar-o" aria-hidden="true"></i>
+                @e.Name
+                <span class="pull-right"><i class="fa fa-clock-o" aria-hidden="true"></i>@e.StartDate</span>
+            </a>
+        </div>
+    }
+</section>

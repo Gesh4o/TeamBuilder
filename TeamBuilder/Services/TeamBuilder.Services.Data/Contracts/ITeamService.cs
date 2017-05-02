@@ -1,5 +1,10 @@
 ﻿namespace TeamBuilder.Services.Data.Contracts
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
+
     using TeamBuilder.Clients.Models.Team;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common.Contracts;
@@ -11,6 +16,8 @@
         TTeamProjection Find<TTeamProjection>(int id);
 
         Team Find(int id);
+
+        IEnumerable<TTeamProjection> Filter<TTeamProjection>(Expression<Func<Team, bool>> filter, string include = "");
 
         Team Add(TeamAddBindingModel teamBindingModel, string creatorId);
 

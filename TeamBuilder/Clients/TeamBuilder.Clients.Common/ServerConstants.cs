@@ -32,6 +32,8 @@
             public const string StringLengthMustBe = "{0} must be {1} symbols long.";
 
             public const string FileMustBeImage = "Uploaded file must be an image (png/jpg).";
+
+            public const string SearchTypeNotSupported = "Search type not  supported.";
         }
     }
 }

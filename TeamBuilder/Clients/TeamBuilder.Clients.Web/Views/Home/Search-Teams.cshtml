@@ -1,0 +1,25 @@
+﻿@using TeamBuilder.Clients.Models.Home
+@model IEnumerable<TeamViewModel>
+@{
+    ViewBag.Title = "Search";
+}
+                            
+<div class="container body-content">
+    <h2 class="no-margin-top">Teams</h2>
+
+    <section class="teams">
+        <p>@this.Model.Count() teams are found.</p>
+
+        @foreach (TeamViewModel team in this.Model)
+        {
+            <hr />
+            <div class="listed-team">
+                <a href="/team/details/@team.Id">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    @team.Name
+                </a>
+            </div>
+        }
+    </section>
+</div>
+

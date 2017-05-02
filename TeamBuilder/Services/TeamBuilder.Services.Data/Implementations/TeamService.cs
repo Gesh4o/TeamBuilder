@@ -1,7 +1,9 @@
 ﻿namespace TeamBuilder.Services.Data.Implementations
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq.Expressions;
 
     using AutoMapper;
 
@@ -125,6 +127,11 @@
             }
 
             return FileUtilities.ConvertByteArrayToImageUrl(this.fileService.Download(filePath));
+        }
+
+        public IEnumerable<TTeamProjection> Filter<TTeamProjection>(Expression<Func<Team, bool>> filter, string include = "")
+        {
+            return this.teamRepository.GetAll<TTeamProjection>(filter, include);
         }
     }
 }
