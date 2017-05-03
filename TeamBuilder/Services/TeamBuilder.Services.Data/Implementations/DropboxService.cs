@@ -66,6 +66,16 @@
             return conversionTask.Result;
         }
 
+        public string GetPictureAsBase64(string filePath)
+        {
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return string.Empty;
+            }
+
+            return FileUtilities.ConvertByteArrayToImageUrl(this.Download(filePath));
+        }
+
         private static string GetAccessToken()
         {
             return ConfigurationManager.AppSettings["DropboxAccessToken"];

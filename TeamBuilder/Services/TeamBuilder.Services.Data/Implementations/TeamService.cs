@@ -119,16 +119,6 @@
             this.teamRepository.Update(team);
         }
 
-        public string GetPictureAsBase64(string filePath)
-        {
-            if (string.IsNullOrEmpty(filePath))
-            {
-                return string.Empty;
-            }
-
-            return FileUtilities.ConvertByteArrayToImageUrl(this.fileService.Download(filePath));
-        }
-
         public IEnumerable<TTeamProjection> Filter<TTeamProjection>(Expression<Func<Team, bool>> filter, string include = "")
         {
             return this.teamRepository.GetAll<TTeamProjection>(filter, include);

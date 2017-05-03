@@ -1,7 +1,6 @@
 ﻿namespace TeamBuilder.Services.Data.Contracts
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
@@ -24,7 +23,5 @@
         void Edit(TeamEditBindingModel teamBindingModel);
 
         void Disband(int id);
-
-        string GetPictureAsBase64(string filePath);
     }
 }

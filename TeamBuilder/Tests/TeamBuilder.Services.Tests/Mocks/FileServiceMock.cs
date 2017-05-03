@@ -27,5 +27,10 @@
         {
             return new Task<byte[]>(() => new byte[0]);
         }
+
+        public string GetPictureAsBase64(string path)
+        {
+            return Convert.ToBase64String(new byte[10]);
+        }
     }
 }

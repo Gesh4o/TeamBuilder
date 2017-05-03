@@ -14,5 +14,7 @@
         byte[] Download(string fileName);
 
         Task<byte[]> DownloadAsync(string fileName);
+
+        string GetPictureAsBase64(string path);
     }
 }
