@@ -116,3 +116,23 @@ body {
 .teams, .events, .users {
     padding-bottom: 20px;
 }
+
+.navbar-events {
+    padding: 10px 5px 0px 5px;
+    color: #17baef;
+}
+
+.navbar-number {
+    color: #0c86ae;
+    font-weight: bold;
+    position: relative;
+    right: 10px;
+    top: 10px;
+}
+.navbar-ico {
+    font-size: 1.7em !important;
+}
+
+li.navbar-events a {
+    padding: 0;   
+}
