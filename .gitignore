@@ -258,3 +258,6 @@ paket-files/
 # Security configurations
 **/security.config
 **/ConnectionStrings.config
+
+# All javascript bower libs
+**/lib/
