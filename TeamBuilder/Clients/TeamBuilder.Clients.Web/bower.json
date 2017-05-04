@@ -1,0 +1,8 @@
+{
+  "name": "asp.net",
+  "private": true,
+  "directory": "lib",
+  "dependencies": {
+    "sweetalert": "bootstrap-sweetalert#v0.3.1"
+  }
+}
