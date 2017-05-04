@@ -36,6 +36,8 @@
 
         public bool IsDeleted { get; set; }
 
+        public string ProfilePicturePath { get; set; }
+
         public virtual ICollection<Team> CreatedTeams { get; set; }
 
         public virtual ICollection<UserTeam> JoinedTeams { get; set; }

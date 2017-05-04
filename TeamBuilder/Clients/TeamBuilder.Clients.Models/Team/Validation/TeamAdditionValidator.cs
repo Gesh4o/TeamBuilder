@@ -3,13 +3,8 @@
     using FluentValidation;
 
     using TeamBuilder.Clients.Common;
+    using TeamBuilder.Clients.Common.Validation;
     using TeamBuilder.Clients.Models.Team;
-
-    public enum ContentType
-    {
-        png,
-        jpeg
-    }
 
     public class TeamAdditionValidator : AbstractValidator<TeamAddBindingModel>
     {
@@ -57,8 +52,8 @@
                     image =>
                         image == null ||
                         (image.ContentLength < ServerConstants.Models.MaxTeamLogoSizeInBytes
-                            && (image.ContentType == $"image/{ContentType.jpeg.ToString()}"
-                                || image.ContentType == $"image/{ContentType.png.ToString()}")))
+                            && (image.ContentType == $"image/{ImageContentType.jpeg.ToString()}"
+                                || image.ContentType == $"image/{ImageContentType.png.ToString()}")))
                 .WithMessage(ServerConstants.ErrorMessages.FileMustBeImage);
         }
     }

@@ -6,7 +6,7 @@
 }
 
 
-<main class="container body-content">    
+<main class="container body-content">
     <aside class="col-md-3">
         <img class="img-responsive" src="@this.Model.ProfilePictureUrl" alt="@this.Model.Username's picture" />
         <h4>@this.Model.Username</h4>
@@ -31,7 +31,10 @@
 
     <section class="profile">
         @Html.Partial("~/Views/Partial/Account/Profile.cshtml", this.Model.Profile)
-    </section>
+    </section>                                              
 </main>
 
-
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script src="~/Scripts/Custom/ajax.js?token=1213112.js"></script>
+}

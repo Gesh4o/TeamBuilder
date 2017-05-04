@@ -23,6 +23,10 @@
 
             public const int MaxTeamLogoSizeInBytes = 1048576;
             #endregion
+
+            #region User
+            public const int MaxProfilePictureSizeInBytes = 2 * 1048576;
+            #endregion
         }
 
         public static class ErrorMessages
@@ -32,6 +36,8 @@
             public const string StringLengthMustBe = "{0} must be {1} symbols long.";
 
             public const string FileMustBeImage = "Uploaded file must be an image (png/jpg).";
+
+            public const string PropertyIsRequired = "{0} is required.";
 
             public const string SearchTypeNotSupported = "Search type not  supported.";
         }

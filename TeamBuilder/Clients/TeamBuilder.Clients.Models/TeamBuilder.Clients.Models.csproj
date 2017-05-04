@@ -93,6 +93,7 @@
     <Compile Include="Account\SendCodeViewModel.cs" />
     <Compile Include="Account\Details\TeamListViewModel.cs" />
     <Compile Include="Account\Details\UserDetailsViewModel.cs" />
+    <Compile Include="Account\Validation\UpdateProfilePictureValidator.cs" />
     <Compile Include="Account\VerifyCodeViewModel.cs" />
     <Compile Include="FriendRequest\RequestBindingModel.cs" />
     <Compile Include="FriendRequest\AddOrRemoveFriendViewModel.cs" />
@@ -101,7 +102,9 @@
     <Compile Include="Home\TeamViewModel.cs" />
     <Compile Include="Home\UserViewModel.cs" />
     <Compile Include="Manage\AddPhoneNumberViewModel.cs" />
+    <Compile Include="Manage\ChangeEmailViewModel.cs" />
     <Compile Include="Manage\ChangePasswordViewModel.cs" />
+    <Compile Include="Manage\ChangeProfilePictureBindingModel.cs" />
     <Compile Include="Manage\ConfigureTwoFactorViewModel.cs" />
     <Compile Include="Manage\FactorViewModel.cs" />
     <Compile Include="Manage\IndexViewModel.cs" />

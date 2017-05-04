@@ -13,13 +13,11 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
-    using Microsoft.Owin.Security.Provider;
 
     using TeamBuilder.Clients.Infrastructure.Identity;
     using TeamBuilder.Clients.Models.Account;
     using TeamBuilder.Clients.Models.Account.Details;
     using TeamBuilder.Clients.Models.FriendRequest;
-    using TeamBuilder.Clients.Models.Home;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
     using TeamBuilder.Services.Data.Implementations;
@@ -502,6 +500,7 @@
                     Username = u.UserName,
                     FullName = u.FirstName + " " + u.LastName,
                     IsSelf = currentUsername == u.UserName,
+                    ProfilePictureUrl = u.ProfilePicturePath,
                     AddOrRemoveFriendViewModel = new AddOrRemoveFriendViewModel
                     {
                         // IsFriend = u.Friends.Any(f => f.Username == u.UserName),
@@ -540,6 +539,7 @@
                 return null;
             }
 
+            user.ProfilePictureUrl = this.fileService.GetPictureAsBase64(user.ProfilePictureUrl);
             return user;
         }
 

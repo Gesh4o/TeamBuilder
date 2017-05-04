@@ -2,7 +2,7 @@
 
 <br />
 <section class="boxed-group">
-    @using (Html.BeginForm("ChangeProfilePicture", "Manage", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "form-horizontal" }))
+    @using (Html.BeginForm("ChangeProfilePicture", "Manage", FormMethod.Post, htmlAttributes: new { enctype = "multipart/form-data", @class = "form-horizontal", id = "update-picture-form" }))
     {
         @Html.AntiForgeryToken()
 
@@ -13,7 +13,7 @@
         <div class="box-group-inner">
             <div class="form-group inline-group">
                 <div class="col-md-offset-2">
-                    <input id="file-input" class="form-control-static inline" type="file" accept=".png,.jpg,jpeg" name="file" />
+                    <input id="file-input" class="form-control-static inline" type="file" accept=".png,.jpg,jpeg" name="NewProfilePicture" />
                     <span class="input-group-btn inline">
                         <input class="btn btn-default inline" type="submit" value="Upload" />
                     </span>
@@ -27,58 +27,68 @@
 </section>
 
 <section class="boxed-group">
-    @using (Html.BeginForm("ChangeEmail", "Manage", FormMethod.Post, new { @class = "form-horizontal" }))
+    @using (Ajax.BeginForm(null, null, new AjaxOptions()
     {
-        @Html.AntiForgeryToken()
+        HttpMethod = "post",
+        Url = Url.Action("ChangeEmail", "Manage"),
+        OnSuccess = "onEmailChangeSuccess",
+        OnFailure = "onEmailChangeFail"
 
-        <h3>Change Email</h3>
-        <div class="box-group-inner">
+    }, new { @class = "form-horizontal", id = "change-email-form" }))
+    {
+    @Html.AntiForgeryToken()
 
-            <div class="form-group inline-group">
-                <label id="email-label" class="control-label col-md-2" for="email">Email</label>
-                <input id="email" class="form-control inline" type="text" name="email" />
+    <h3>Change Email</h3>
+    <div class="box-group-inner">
 
-                <span class="input-group-btn inline">
-                    <input id="btn-change-email" class="btn btn-link" type="submit" value="Change" />
-                </span>
-            </div>
+        <div class="form-group inline-group">
+            <label id="email-label" class="control-label col-md-2" for="email">Email</label>
+            <input id="email" class="form-control inline" type="text" name="email" />
+
+            <span class="input-group-btn inline">
+                <input id="btn-change-email" class="btn btn-link" type="submit" value="Change" onclick="onChangeEmailClick()" />
+            </span>
         </div>
+    </div>
 
-        @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     }
 
 </section>
 
 
 <section class="boxed-group">
-    @using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    @using (Ajax.BeginForm(null, null, new AjaxOptions()
+                                           {
+                                               Url = Url.Action("ChangePassword", "Manage"),
+                                               HttpMethod = "post",
+                                               OnSuccess = "onPasswordChangeSuccess",
+                                               OnFailure = "onPasswordChangeFail"
+                                           }, new { @class = "form-horizontal", role = "form", id = "change-password-form" }))
     {
-        @Html.AntiForgeryToken()
-        <h3>Change Password</h3>
-        <div class="box-group-inner">
-            @Html.ValidationSummary("", new { @class = "text-danger" })
+    @Html.AntiForgeryToken()
+    <h3>Change Password</h3>
+    <div class="box-group-inner">
+        @Html.ValidationSummary("", new { @class = "text-danger" })
 
-            <div class="form-group inline-group">
-                <label class="control-label col-md-2" for="oldPassword">Old Password</label>
-                <input id="oldPassword" type="text" name="oldPassword" class="form-control inline" />
-            </div>
-            <div class="form-group inline-group">
-                <label class="control-label col-md-2" for="newPassword">New Password</label>
-                <input id="newPassword" type="text" name="newPassword" class="form-control inline" />
-            </div>
-            <div class="form-group inline-group">
-                <label class="control-label col-md-2" for="confirmPassword">Confirm Password</label>
-                <input id="confirmPassword" type="text" name="confirmPassword" class="form-control col-md-10 inline" />
-            </div>
-            <div class="form-group">
-                <div id="btn-change-password-wrapper" class="col-md-offset-2 col-md-10 ">
-                    <input type="submit" value="Change password" class="btn btn-default" />
-                </div>
+        <div class="form-group inline-group">
+            <label class="control-label col-md-2" for="oldPassword">Old Password</label>
+            <input id="oldPassword" type="password" name="oldPassword" class="form-control inline" />
+        </div>
+        <div class="form-group inline-group">
+            <label class="control-label col-md-2" for="newPassword">New Password</label>
+            <input id="newPassword" type="password" name="newPassword" class="form-control inline" />
+        </div>
+        <div class="form-group inline-group">
+            <label class="control-label col-md-2" for="confirmPassword">Confirm Password</label>
+            <input id="confirmPassword" type="password" name="confirmPassword" class="form-control col-md-10 inline" />
+        </div>
+        <div class="form-group">
+            <div id="btn-change-password-wrapper" class="col-md-offset-2 col-md-10 ">
+                <input type="submit" value="Change password" class="btn btn-default" />
             </div>
         </div>
+    </div>
 
-    }
-    @section Scripts {
-        @Scripts.Render("~/bundles/jqueryval")
     }
 </section>

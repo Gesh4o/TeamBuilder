@@ -7,7 +7,9 @@
         // For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
+            bundles.Add(new ScriptBundle("~/bundles/jquery")
+                .Include("~/Scripts/jquery-{version}.js")
+                .Include("~/Scripts/jquery.unobtrusive-ajax.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval")
                 .Include("~/Scripts/jquery.validate*"));
@@ -25,6 +27,9 @@
             bundles.Add(new ScriptBundle("~/bundles/modernizr")
                 .Include("~/Scripts/modernizr-*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/sweetalert")
+                .Include("~/lib/sweetalert/lib/sweet-alert.min.js"));
+
             bundles.Add(
                 new ScriptBundle("~/bundles/bootstrap")
                 .Include(
@@ -38,7 +43,7 @@
 
             bundles.Add(new StyleBundle("~/Content/styles")
                 .Include(
-                    "~/Content/styles.css"));
+                    "~/Content/styles.css", "~/lib/sweetalert/lib/sweet-alert.css"));
 
             bundles.Add(new StyleBundle("~/Content/plugins")
                 .Include(

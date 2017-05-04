@@ -1,16 +1,23 @@
 ﻿namespace TeamBuilder.Web.Controllers
 {
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
+
+    using FluentValidation.Results;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
 
     using TeamBuilder.Clients.Infrastructure.Identity;
+    using TeamBuilder.Clients.Models.Account.Validation;
     using TeamBuilder.Clients.Models.Manage;
+    using TeamBuilder.Data.Models;
+    using TeamBuilder.Services.Data.Contracts;
+    using TeamBuilder.Services.Data.Implementations;
 
     [Authorize]
     public class ManageController : Controller
@@ -18,15 +25,19 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
+        private readonly IFileService fileService;
+
         private ApplicationSignInManager signInManager;
 
         private ApplicationUserManager userManager;
 
         public ManageController()
         {
+            // TODO: Use Ninject.
+            this.fileService = new DropboxService();
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) : this()
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -104,10 +115,10 @@
             if (UserManager.SmsService != null)
             {
                 var message = new IdentityMessage
-                                  {
-                                      Destination = model.Number,
-                                      Body = "Your security code is: " + code
-                                  };
+                {
+                    Destination = model.Number,
+                    Body = "Your security code is: " + code
+                };
                 await UserManager.SmsService.SendAsync(message);
             }
 
@@ -120,33 +131,94 @@
             return View();
         }
 
+        public JsonResult ChangeProfilePicture()
+        {
+            ChangeProfilePictureBindingModel model = new ChangeProfilePictureBindingModel();
+            model.NewProfilePicture = this.Request.Files.Count != 0 ? this.Request.Files.Get(0) : null;
+
+            UpdateProfilePictureValidator validator = new UpdateProfilePictureValidator();
+            ValidationResult validationResult = validator.Validate(model);
+
+            if (!validationResult.IsValid)
+            {
+                string errorMessage = validationResult.Errors.FirstOrDefault().ErrorMessage;
+                this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return new JsonResult
+                {
+                    ContentType = "application/json",
+                    Data = new { error = errorMessage }
+                };
+            }
+
+            string profilePicturePath = this.fileService.Upload(model.NewProfilePicture.InputStream);
+
+            string currentUserId = this.User.Identity.GetUserId();
+            ApplicationUser user = this.UserManager.Users.FirstOrDefault(u => u.Id == currentUserId);
+
+            user.ProfilePicturePath = profilePicturePath;
+
+            this.UserManager.Update(user);
+
+            return new JsonResult
+            {
+                Data = new { message = "Profile successfully updated!" },
+                ContentType = "application/json"
+            };
+        }
+
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ChangePassword(ChangePasswordViewModel model)
+        public JsonResult ChangePassword(ChangePasswordViewModel model)
         {
+            string errorMessage;
             if (!ModelState.IsValid)
             {
-                return View(model);
+                errorMessage = GetFirstErrorMessageFromModelState();
+
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return new JsonResult
+                {
+                    Data = new { error = errorMessage },
+                    ContentType = "application/json"
+                };
             }
 
-            var result = await UserManager.ChangePasswordAsync(
+            var result = UserManager.ChangePasswordAsync(
                              User.Identity.GetUserId(),
                              model.OldPassword,
                              model.NewPassword);
-            if (result.Succeeded)
+            result.Wait();
+
+            if (result.Result.Succeeded)
             {
-                var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
-                if (user != null)
+                var user = UserManager.FindByIdAsync(User.Identity.GetUserId());
+                user.Wait();
+
+                if (user.Result != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    var signIn = SignInManager.SignInAsync(user.Result, isPersistent: false, rememberBrowser: false);
+
+                    signIn.Wait();
                 }
 
-                return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
+                return new JsonResult
+                {
+                    Data = new { message = "Password successfully changed." },
+                    ContentType = "application/json"
+                };
             }
 
-            AddErrors(result);
-            return View(model);
+            errorMessage = result.Result.Errors.FirstOrDefault();
+            Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+            return new JsonResult
+            {
+                Data = new { error = errorMessage },
+                ContentType = "application/json"
+            };
         }
 
         // POST: /Manage/DisableTwoFactorAuthentication
@@ -198,14 +270,14 @@
 
             var userId = User.Identity.GetUserId();
             var model = new IndexViewModel
-                            {
-                                HasPassword = HasPassword(),
-                                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                                Logins = await UserManager.GetLoginsAsync(userId),
-                                BrowserRemembered =
+            {
+                HasPassword = HasPassword(),
+                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
+                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
+                Logins = await UserManager.GetLoginsAsync(userId),
+                BrowserRemembered =
                                     await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-                            };
+            };
             return View(model);
         }
 
@@ -304,6 +376,44 @@
             return RedirectToAction("Index", new { Message = ManageMessageId.RemovePhoneSuccess });
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeEmail(ChangeEmailViewModel model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    ContentType = "application/json",
+                    Data = new { error = "Email not valid." }
+                };
+            }
+
+            string userId = this.User.Identity.GetUserId();
+            ApplicationUser user = this.UserManager.Users.FirstOrDefault(u => u.Id == userId);
+
+            if (user.Email == model.Email)
+            {
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+
+                return new JsonResult
+                {
+                    ContentType = "application/json",
+                    Data = new { error = "Please choose different email." }
+                };
+            }
+
+            user.Email = model.Email;
+            this.UserManager.Update(user);
+
+            return new JsonResult
+            {
+                ContentType = "application/json",
+                Data = new { message = "Email successfully updated." }
+            };
+        }
+
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
@@ -394,6 +504,15 @@
             {
                 ModelState.AddModelError(string.Empty, error);
             }
+        }
+
+        private string GetFirstErrorMessageFromModelState()
+        {
+            return this.ModelState
+                .Values
+                .FirstOrDefault(v => v.Errors.Any())
+                .Errors.FirstOrDefault()
+                .ErrorMessage;
         }
 
         private bool HasPassword()
