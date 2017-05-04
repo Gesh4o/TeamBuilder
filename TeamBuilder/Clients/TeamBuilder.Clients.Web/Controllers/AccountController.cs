@@ -1,6 +1,8 @@
 ﻿namespace TeamBuilder.Web.Controllers
 {
+    using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using System.Threading.Tasks;
     using System.Web;
@@ -11,10 +13,16 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.Owin;
     using Microsoft.Owin.Security;
+    using Microsoft.Owin.Security.Provider;
 
     using TeamBuilder.Clients.Infrastructure.Identity;
     using TeamBuilder.Clients.Models.Account;
+    using TeamBuilder.Clients.Models.Account.Details;
+    using TeamBuilder.Clients.Models.FriendRequest;
+    using TeamBuilder.Clients.Models.Home;
     using TeamBuilder.Data.Models;
+    using TeamBuilder.Services.Data.Contracts;
+    using TeamBuilder.Services.Data.Implementations;
 
     [Authorize]
     public class AccountController : Controller
@@ -22,15 +30,21 @@
         // Used for XSRF protection when adding external logins
         private const string XsrfKey = "XsrfId";
 
+        private readonly IFileService fileService;
+
         private ApplicationSignInManager signInManager;
 
         private ApplicationUserManager userManager;
 
         public AccountController()
         {
+            // TODO: Use Ninject.
+            this.fileService = new DropboxService();
         }
 
-        public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        public AccountController(
+            ApplicationUserManager userManager,
+            ApplicationSignInManager signInManager) : this()
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
@@ -429,6 +443,15 @@
             }
         }
 
+        [Route("user/{username}")]
+        [AllowAnonymous]
+        public ActionResult Details(string username, string section)
+        {
+            UserDetailsViewModel user = this.GetUserDetails(username, section);
+
+            return this.View(user);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -465,6 +488,113 @@
             }
 
             return RedirectToAction("Index", "Home");
+        }
+
+        private UserDetailsViewModel GetUserDetails(string username, string section = "")
+        {
+            string currentUsername = this.User.Identity.GetUserName();
+            string currentUserId = this.User.Identity.GetUserId();
+            UserDetailsViewModel user = this.UserManager
+                .Users
+                .Where(u => u.UserName == username)
+                .Select(u => new UserDetailsViewModel
+                {
+                    Username = u.UserName,
+                    FullName = u.FirstName + " " + u.LastName,
+                    IsSelf = currentUsername == u.UserName,
+                    AddOrRemoveFriendViewModel = new AddOrRemoveFriendViewModel
+                    {
+                        // IsFriend = u.Friends.Any(f => f.Username == u.UserName),
+                        DestinationId = u.Id,
+                        SourceId = currentUserId
+                    },
+                    Profile = new ProfileViewModel
+                    {
+                        Id = u.Id,
+                        Username = u.UserName,
+                        Section = section
+                    }
+                })
+                .FirstOrDefault();
+
+            if (user == null)
+            {
+                throw new NullReferenceException();
+            }
+
+            if (string.IsNullOrEmpty(section) ||
+                section == "overview" ||
+                section == "settings")
+            {
+            }
+            else if (section == "teams")
+            {
+                user.Profile.Teams = this.LoadUserTeams(username);
+            }
+            else if (section == "events")
+            {
+                user.Profile.Events = this.LoadUserEvents(username);
+            }
+            else
+            {
+                return null;
+            }
+
+            return user;
+        }
+
+        private IEnumerable<EventListViewModel> LoadUserEvents(string username)
+        {
+            IEnumerable<EventListViewModel> events =
+                this.UserManager.Users.Include(u => u.CreatedEvents)
+                    .Where(u => u.UserName == username)
+                    .Select(u => u.CreatedEvents)
+                    .SelectMany(ee => ee.Select(e => new
+                    {
+                        Name = e.Name,
+                        Description = e.Description,
+                        StartDate = e.StartDate,
+                        EndDate = e.EndDate,
+                        EnrollmentEndTime = e.EnrollmentEndTime
+                    }))
+                    .ToList()
+                    .Select(e => new EventListViewModel
+                     {
+                         Name = e.Name,
+                         Description = e.Description,
+                         StartDate = e.StartDate.ToString("dd/MM/yyyy"),
+                         EndDate = e.EndDate.ToString("dd/MM/yyyy"),
+                         EnrollmentEndTime = e.EnrollmentEndTime.ToString("dd/MM/yyyy HH:mm")
+                     })
+                    .ToList();
+
+            return events;
+        }
+
+        private IEnumerable<TeamListViewModel> LoadUserTeams(string username)
+        {
+            List<TeamListViewModel> teams = this.UserManager
+                .Users
+                .Where(u => u.UserName == username)
+                .Include(u => u.JoinedTeams)
+                .Include(u => u.JoinedTeams.Select(jt => jt.Team))
+                .Select(u => u.JoinedTeams)
+                .SelectMany(ut => ut.Select(t => new TeamListViewModel
+                {
+                    Name = t.Team.Name,
+                    Description = t.Team.Description,
+                    Acronym = t.Team.Acronym,
+                    LogoUrl = t.Team.ImageFileName,
+                    EventsParticipatedCount = t.Team.ParticipatedEvents.Count,
+                    MembersCount = t.Team.Members.Count
+                }))
+                .ToList();
+
+            teams
+            .ForEach(
+                t => t.LogoUrl = this.fileService.GetPictureAsBase64(t.LogoUrl));
+
+            return teams;
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

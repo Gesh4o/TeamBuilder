@@ -82,7 +82,7 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\Custom\custom-script.js" />
+    <Content Include="Scripts\Custom\handlers.js" />
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -161,6 +161,13 @@
     <Content Include="Views\Home\Search-Users.cshtml" />
     <Content Include="Views\Home\Search-Teams.cshtml" />
     <Content Include="Views\Home\Search-Events.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\Partial\Account\AddOrRemoveUser.cshtml" />
+    <Content Include="Views\Partial\Account\Profile.cshtml" />
+    <Content Include="Views\Partial\Account\Overview.cshtml" />
+    <Content Include="Views\Partial\Account\Teams.cshtml" />
+    <Content Include="Views\Partial\Account\Events.cshtml" />
+    <Content Include="Views\Partial\Account\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">

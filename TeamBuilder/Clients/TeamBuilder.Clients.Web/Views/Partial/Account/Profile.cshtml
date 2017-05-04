@@ -1,0 +1,36 @@
+﻿@model TeamBuilder.Clients.Models.Account.Details.ProfileViewModel
+@{
+    string btnClass = "btn underline-nav-item";
+    string overviewClass = btnClass + (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section) ? " selected" : string.Empty);
+    string teamsClass = btnClass + (this.Model.Section == "teams" ? " selected" : string.Empty);
+    string eventsClass = btnClass + (this.Model.Section == "events" ? " selected" : string.Empty);
+    string settingsClass = btnClass + (this.Model.Section == "settings" ? " selected" : string.Empty);
+}
+
+<div class="col-md-9">
+    <nav class="underline-nav">
+        @Html.ActionLink("Overview", "Details", "Account", htmlAttributes: new { @class = overviewClass }, routeValues: new { username = this.Model.Username, section = "" })
+        @Html.ActionLink("Teams", "Details", "Account", htmlAttributes: new { @class = teamsClass }, routeValues: new { username = this.Model.Username, section = "teams" })
+        @Html.ActionLink("Events", "Details", "Account", htmlAttributes: new { @class = eventsClass }, routeValues: new { username = this.Model.Username, section = "events" })
+        @Html.ActionLink("Settings", "Details", "Account", htmlAttributes: new { @class = settingsClass }, routeValues: new { username = this.Model.Username, section = "settings" })
+    </nav>
+
+    <div>
+        @if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
+        {
+            @Html.Partial("~/Views/Partial/Account/Overview.cshtml", this.Model.Activities)
+        }
+        else if (this.Model.Section == "teams")
+        {
+            @Html.Partial("~/Views/Partial/Account/Teams.cshtml", this.Model.Teams)
+        }
+        else if (this.Model.Section == "events")
+        {
+            @Html.Partial("~/Views/Partial/Account/Events.cshtml", this.Model.Events)
+        }
+        else if (this.Model.Section == "settings")
+        {
+            @Html.Partial("~/Views/Partial/Account/Settings.cshtml", this.Model.Id)
+        }
+    </div>
+</div>

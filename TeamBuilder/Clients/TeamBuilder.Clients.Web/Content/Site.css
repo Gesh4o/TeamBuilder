@@ -43,18 +43,11 @@ iframe {
         background: none;
     }
 
-.navbar-logged {
-    margin-bottom: 0;
-}
-
 body {
     height: 100%;
     min-height: 100%;
 }
 
-.header {
-    margin-bottom: 30px;
-}
 
 #RememberMe {
     margin-left: 0;
@@ -75,22 +68,22 @@ body {
     margin-bottom: 5px;
 }
 
-.listed-team i, .listed-event .fa-calendar{
-    margin-right: 10px;
-    color: black;
-}
+    .listed-team i, .listed-event .fa-calendar {
+        margin-right: 10px;
+        color: black;
+    }
 
-.listed-team:hover i, .listed-event:hover i {
-    color: inherit;
-}
+    .listed-team:hover i, .listed-event:hover i {
+        color: inherit;
+    }
 
-.listed-team a, .listed-event a {
-    color: black;
-}
+    .listed-team a, .listed-event a {
+        color: black;
+    }
 
-.listed-team a:hover, .listed-event a:hover {
-    text-decoration-line: none;
-}
+        .listed-team a:hover, .listed-event a:hover {
+            text-decoration-line: none;
+        }
 
 #new-team:after, #new-event:after {
     clear: both;
@@ -106,7 +99,7 @@ body {
 
 .upcoming-events {
     margin-top: 20px;
-    margin-bottom: 40px;   
+    margin-bottom: 40px;
 }
 
 .my-teams {
@@ -118,7 +111,7 @@ body {
 }
 
 .navbar-events {
-    padding: 10px 5px 0px 5px;
+    padding: 10px 5px 0 5px;
     color: #17baef;
 }
 
@@ -129,10 +122,114 @@ body {
     right: 10px;
     top: 10px;
 }
+
 .navbar-ico {
     font-size: 1.7em !important;
 }
 
 li.navbar-events a {
-    padding: 0;   
+    padding: 0;
 }
+
+/* Profile page*/
+.underline-nav {
+    border-bottom: 1px solid #d1d5da;
+}
+
+.underline-nav-item {
+    padding-left: 20px;
+    padding-right: 20px;
+    border-bottom: 2px solid transparent;
+}
+
+    .underline-nav-item.selected {
+        border-bottom-color: #eebf3f;
+    }
+
+.team-container, .event-container {
+    padding: 20px 0;
+}
+
+    .team-container a:hover {
+        text-decoration-line: none;
+    }
+
+    .team-container p, .event-container p, .team-additional-data, .event-additional-data {
+        font-size: 1.2em;
+    }
+
+.team-logo {
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.logo {
+    width: 25%;
+    text-align: center;
+}
+
+.team-details {
+    padding-left: 25%
+}
+
+.team-additional-data:hover {
+    cursor: default;
+}
+
+.team-additional-data i {
+    font-size: 1.5em;
+    padding: 5px;
+}
+
+.boxed-group {
+    margin-bottom: 30px;
+}
+
+    .boxed-group h3 {
+        display: block;
+        padding: 9px 10px 10px;
+        margin: 0;
+        font-size: 14px;
+        line-height: 17px;
+        background-color: #f6f8fa;
+        border: 1px solid rgba(27,31,35,0.15);
+        border-bottom: 0;
+        border-radius: 3px 3px 0 0;
+    }
+
+
+.box-group-inner {
+    padding: 10px;
+    padding-left: 20px;
+    color: #586069;
+    background: #fff;
+    border: 1px solid #d1d5da;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.inline, input.inline {
+    display: inline-block;
+}
+.inline-group {
+    padding-top: 10px;
+}
+
+#email-label {
+    padding-top: 7px;
+}
+
+#file-input {
+    margin-right: 20px;
+    border: 1px solid #cccccc;
+    text-align: center;
+}
+
+#btn-change-password-wrapper {
+    padding-left: 0;
+}
+
+#btn-change-email:hover {
+    text-decoration-line: none;
+}
+

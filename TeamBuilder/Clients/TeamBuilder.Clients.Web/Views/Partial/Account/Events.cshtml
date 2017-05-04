@@ -1,0 +1,17 @@
+﻿@using TeamBuilder.Clients.Models.Account.Details
+@model IEnumerable<EventListViewModel>
+
+@foreach (EventListViewModel e in this.Model)
+{
+    <div class="event-container">
+        <div class="event-details">
+            <a href="/event/@e.Name"><h4>@e.Name<i class="fa fa-calendar-o" aria-hidden="true"></i><span>@e.StartDate</span></h4></a>
+            <p>@e.Description</p>
+            <div class="event-additional-data">
+                <i class="fa fa-calendar" aria-hidden="true"></i>@e.EndDate
+                <i class="fa fa-calendar-o text-danger" aria-hidden="true"></i>@e.EnrollmentEndTime
+            </div>
+        </div>
+        <hr />
+    </div>
+}

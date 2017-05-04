@@ -11,7 +11,6 @@
     using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common;
-    using TeamBuilder.Services.Common.Utilities;
     using TeamBuilder.Services.Data.Contracts;
 
     public class TeamService : ITeamService
@@ -122,6 +121,20 @@
         public IEnumerable<TTeamProjection> Filter<TTeamProjection>(Expression<Func<Team, bool>> filter, string include = "")
         {
             return this.teamRepository.GetAll<TTeamProjection>(filter, include);
+        }
+
+        public void AddUserToTeam(string userId, int teamId, TeamRole role = TeamRole.Member)
+        {
+            // TODO: Check userId.
+            Team team = this.teamRepository.SingleOrDefault(t => t.Id == teamId);
+            team.Members.Add(new UserTeam
+            {
+                TeamId = teamId,
+                UserId = userId,
+                Role = role
+            });
+
+            this.teamRepository.Update(team);
         }
     }
 }

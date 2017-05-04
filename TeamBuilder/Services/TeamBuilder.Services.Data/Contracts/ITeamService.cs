@@ -23,5 +23,7 @@
         void Edit(TeamEditBindingModel teamBindingModel);
 
         void Disband(int id);
+
+        void AddUserToTeam(string userId, int teamId, TeamRole teamRole = TeamRole.Member);
     }
 }

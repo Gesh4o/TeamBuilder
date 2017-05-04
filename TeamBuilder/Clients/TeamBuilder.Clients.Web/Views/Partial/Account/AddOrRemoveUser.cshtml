@@ -1,0 +1,42 @@
+﻿@model TeamBuilder.Clients.Models.FriendRequest.AddOrRemoveFriendViewModel
+   
+@if (this.Model.IsFriend)
+{
+    using (Ajax.BeginForm("SendFriendRequest", "Account",
+        new AjaxOptions()
+        {
+            HttpMethod = "post",
+            OnSuccess = "onFriendRequestSend"
+        },
+        htmlAttributes: new { id = "addFriendForm" }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.SourceId)
+        @Html.HiddenFor(model => model.DestinationId)
+        <a id="add-user-btn" class="btn btn-success" onclick="onSendingInvitationClick">
+            <i class="fa fa-plus" aria-hidden="true"></i> Add Friend
+        </a>
+    }
+}
+else
+{
+    using (Ajax.BeginForm("RemoveFriend", "Account", new AjaxOptions()
+    {
+        HttpMethod = "post",
+        OnSuccess = "onRemoveFriendSuccess"
+    }))
+    {
+        @Html.AntiForgeryToken()
+
+        @Html.HiddenFor(model => model.SourceId)
+        @Html.HiddenFor(model => model.DestinationId)
+        <a id="remove-user-btn" class="btn btn-danger" onclick="OnRemoveFriendClick">
+            <i class="fa fa-times" aria-hidden="true"></i> Remove Friend
+        </a>
+    }
+}
+
+@section Scripts {
+    @Scripts.Render("~/custom/handlers.js")
+}

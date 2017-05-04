@@ -1,0 +1,37 @@
+﻿@using TeamBuilder.Clients.Models.Account.Details
+
+@model UserDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<main class="container body-content">    
+    <aside class="col-md-3">
+        <img class="img-responsive" src="@this.Model.ProfilePictureUrl" alt="@this.Model.Username's picture" />
+        <h4>@this.Model.Username</h4>
+        <h5>@this.Model.FullName</h5>
+
+        <hr />
+        @if (!this.Model.IsSelf)
+        {
+            @Html.Partial("~/Views/Partial/Account/AddOrRemoveUser.cshtml", this.Model.AddOrRemoveFriendViewModel)
+            <hr />
+        }
+
+
+        <h4>Friends</h4>
+        <ul class="friends">
+            @foreach (FriendViewModel friend in this.Model.Friends)
+            {
+                <li class="user-friend"><a href="/account/@friend.Username"><img src="@friend.ProfilePictureUrl" /></a></li>
+            }
+        </ul>
+    </aside>
+
+    <section class="profile">
+        @Html.Partial("~/Views/Partial/Account/Profile.cshtml", this.Model.Profile)
+    </section>
+</main>
+
+

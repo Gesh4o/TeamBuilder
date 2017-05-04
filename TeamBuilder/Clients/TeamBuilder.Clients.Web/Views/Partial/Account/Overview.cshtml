@@ -1,0 +1,9 @@
+﻿@model IEnumerable<string>
+<h3>Last activity</h3>
+                          
+<ul>
+    @foreach (string message in this.Model)
+    {
+        <li>@message</li>
+    }
+</ul>

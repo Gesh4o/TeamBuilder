@@ -14,9 +14,12 @@
     {
         private readonly ITeamService teamService;
 
-        public TeamController(ITeamService teamService)
+        private readonly IFileService fileService;
+
+        public TeamController(ITeamService teamService, IFileService fileService)
         {
             this.teamService = teamService;
+            this.fileService = fileService;
         }
 
         // GET: Team/Details/5
@@ -34,7 +37,7 @@
                 return this.HttpNotFound();
             }
 
-            teamViewModel.ImageContent = this.teamService.GetPictureAsBase64(teamViewModel.ImageFileName);
+            teamViewModel.ImageContent = this.fileService.GetPictureAsBase64(teamViewModel.ImageFileName);
 
             return this.View(teamViewModel);
         }
@@ -58,7 +61,9 @@
                     return this.View(teamBindingModel);
                 }
 
-                Team team = this.teamService.Add(teamBindingModel, this.User.Identity.GetUserId());
+                string userId = this.User.Identity.GetUserId();
+                Team team = this.teamService.Add(teamBindingModel, userId);
+                this.teamService.AddUserToTeam(userId, team.Id);
                 
                 return this.RedirectToAction("Details", new { id = team.Id });
             }

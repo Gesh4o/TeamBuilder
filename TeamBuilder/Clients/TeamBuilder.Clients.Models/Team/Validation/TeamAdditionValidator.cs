@@ -8,7 +8,7 @@
     public enum ContentType
     {
         png,
-        jpg
+        jpeg
     }
 
     public class TeamAdditionValidator : AbstractValidator<TeamAddBindingModel>
@@ -57,7 +57,7 @@
                     image =>
                         image == null ||
                         (image.ContentLength < ServerConstants.Models.MaxTeamLogoSizeInBytes
-                            && (image.ContentType == $"image/{ContentType.jpg.ToString()}"
+                            && (image.ContentType == $"image/{ContentType.jpeg.ToString()}"
                                 || image.ContentType == $"image/{ContentType.png.ToString()}")))
                 .WithMessage(ServerConstants.ErrorMessages.FileMustBeImage);
         }

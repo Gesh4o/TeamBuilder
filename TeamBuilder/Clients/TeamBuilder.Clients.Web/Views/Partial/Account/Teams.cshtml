@@ -1,0 +1,22 @@
+﻿@using TeamBuilder.Clients.Models.Account.Details
+
+@model IEnumerable<TeamListViewModel>
+
+@foreach (TeamListViewModel team in this.Model)
+{
+    <div class="team-container">
+        <div class="logo pull-left">
+            <img class="img-responsive team-logo" src="@team.LogoUrl" alt="@team.Name's logo" />
+        </div>
+
+        <div class="team-details">
+            <a href="/team/@team.Name"><h4>@team.Name [<span>@team.Acronym</span>]</h4></a>
+            <p>@team.Description</p> 
+            <div class="team-additional-data">
+                <i class="fa fa-user fa-2x" aria-hidden="true"></i>@team.MembersCount
+                <i class="fa fa-calendar" aria-hidden="true"></i>@team.EventsParticipatedCount
+            </div>
+        </div>
+        <hr />
+    </div>
+}

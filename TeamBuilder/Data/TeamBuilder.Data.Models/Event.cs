@@ -23,6 +23,8 @@
 
         public DateTime EndDate { get; set; }
 
+        public DateTime EnrollmentEndTime { get; set; }
+
         public string CreatorId { get; set; }
 
         public bool IsDeleted { get; set; }

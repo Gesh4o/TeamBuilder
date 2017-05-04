@@ -80,15 +80,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account\Details\EventListViewModel.cs" />
     <Compile Include="Account\ExternalLoginConfirmationViewModel.cs" />
     <Compile Include="Account\ExternalLoginListViewModel.cs" />
     <Compile Include="Account\ForgotPasswordViewModel.cs" />
     <Compile Include="Account\ForgotViewModel.cs" />
+    <Compile Include="Account\Details\FriendViewModel.cs" />
     <Compile Include="Account\LoginViewModel.cs" />
+    <Compile Include="Account\Details\ProfileViewModel.cs" />
     <Compile Include="Account\RegisterViewModel.cs" />
     <Compile Include="Account\ResetPasswordViewModel.cs" />
     <Compile Include="Account\SendCodeViewModel.cs" />
+    <Compile Include="Account\Details\TeamListViewModel.cs" />
+    <Compile Include="Account\Details\UserDetailsViewModel.cs" />
     <Compile Include="Account\VerifyCodeViewModel.cs" />
+    <Compile Include="FriendRequest\RequestBindingModel.cs" />
+    <Compile Include="FriendRequest\AddOrRemoveFriendViewModel.cs" />
     <Compile Include="Home\EventViewModel.cs" />
     <Compile Include="Home\SearchType.cs" />
     <Compile Include="Home\TeamViewModel.cs" />
