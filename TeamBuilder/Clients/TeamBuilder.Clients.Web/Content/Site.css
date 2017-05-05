@@ -233,3 +233,20 @@ li.navbar-events a {
     text-decoration-line: none;
 }
 
+.small-ico {
+    width: 30px;
+    height: 30px;
+}
+
+.members, .requesters {
+    padding-bottom: 20px;
+    text-transform: capitalize;
+}
+
+.requester-username {
+    font-size: 1.2em;
+}
+
+#btn-decline-request, #btn-accept-request {
+    margin-left: 15px;
+}

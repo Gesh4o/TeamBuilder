@@ -1,0 +1,16 @@
+﻿@model TeamBuilder.Clients.Models.Team.SendJoinRequestViewModel
+
+@using (Ajax.BeginForm(null, null, new AjaxOptions
+{
+    Url = Url.Action("SendJoinRequest", "Account"),
+    HttpMethod = "post",
+    OnSuccess = "onInviteRequestSendSuccess",
+    OnFailure = "onInviteRequestSendFail",
+}, new { }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.TeamId)
+    @Html.HiddenFor(model => model.UserId)
+
+    <input type="submit" value="Join" class="btn btn-success" />
+}

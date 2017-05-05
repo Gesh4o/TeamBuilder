@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Linq;
     using System.Linq.Expressions;
 
     using AutoMapper;
@@ -19,8 +20,11 @@
 
         private readonly ITeamRepository teamRepository;
 
-        public TeamService(ITeamRepository teamRepository, IFileService fileService)
+        private readonly IInvitationRepository invitationRepository;
+
+        public TeamService(ITeamRepository teamRepository, IInvitationRepository invitationRepository, IFileService fileService)
         {
+            this.invitationRepository = invitationRepository;
             this.teamRepository = teamRepository;
             this.fileService = fileService;
         }
@@ -44,6 +48,11 @@
                 .SingleOrDefault(t => t.Id == id);
 
             return team;
+        }
+
+        public TTeamProjection Find<TTeamProjection>(string teamName)
+        {
+            return this.teamRepository.SingleOrDefault<TTeamProjection>(t => t.Name == teamName);
         }
 
         public Team Add(TeamAddBindingModel teamBindingModel, string creatorId)
@@ -135,6 +144,144 @@
             });
 
             this.teamRepository.Update(team);
+        }
+
+        public OverviewViewModel LoadOverviewModel(string teamName)
+        {
+            Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Members");
+
+            OverviewViewModel model = new OverviewViewModel
+            {
+                Description = team.Description,
+                Members = team.Members
+                    .Select(us => us.User)
+                    .Select(
+                        u =>
+                            new MemberViewModel
+                            {
+                                Username = u.UserName,
+                                ProfilePictureLink = u.ProfilePicturePath
+                            })
+                    .ToList()
+            };
+
+            foreach (MemberViewModel member in model.Members)
+            {
+                member.ProfilePictureLink = this.fileService.GetPictureAsBase64(member.ProfilePictureLink);
+            }
+
+            return model;
+        }
+
+        public UserJoinRequestsViewModel LoadUserJoinRequestsViewModel(string teamName)
+        {
+            Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Invitations,Invitations.InvitedUser");
+
+            UserJoinRequestsViewModel model = new UserJoinRequestsViewModel
+            {
+                TeamId = team.Id,
+                Users = team.Invitations
+                .Where(i => i.IsActive)
+                .Select(
+                    i =>
+                    new UserRequestViewModel
+                    {
+                        Id = i.InvitedUserId,
+                        Username = i.InvitedUser.UserName
+                    })
+                    .ToList()
+            };
+
+            return model;
+        }
+
+        // TODO: Update
+        public RequestsViewModel LoadInvitationsViewModel(string teamName)
+        {
+            RequestsViewModel model = new RequestsViewModel();
+
+            return model;
+        }
+
+        public SettingsViewModel LoadSettingsViewModel(string teamName)
+        {
+            Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Members,Members.User");
+            SettingsViewModel model = new SettingsViewModel();
+            model.TeamId = team.Id;
+            model.Members = team.Members.Select(ut => new MemberWithRoleViewModel() { Id = ut.User.Id, Username = ut.User.UserName, Role = ut.Role.ToString() }).ToList();
+
+            return model;
+        }
+
+        public TeamDetailsViewModel GetTeamDetails(string teamName, string section, string currentUserId)
+        {
+            TeamDetailsViewModel teamViewModel = this.teamRepository.GetAll(t => t.Name == teamName)
+                .ToList()
+                .Select(
+                t =>
+                    new TeamDetailsViewModel
+                    {
+                        Name = t.Name,
+                        Acronym = t.Acronym,
+                        ImageFileName = t.ImageFileName,
+                        IsPartOfTeam = t.Members.Any(m => m.UserId == currentUserId),
+                        SendJoinRequestViewModel = new SendJoinRequestViewModel
+                        {
+                            TeamId = t.Id,
+                            UserId = currentUserId
+                        },
+                        TeamProfileViewModel = new TeamProfileViewModel
+                        {
+                            IsAuthenticated = t.CreatorId == currentUserId
+                        }
+                    })
+                    .FirstOrDefault();
+
+            if (teamViewModel == null)
+            {
+                // TODO: Fix this.
+                return null;
+            }
+
+            if (string.IsNullOrEmpty(section) || section == "overview")
+            {
+                teamViewModel.TeamProfileViewModel.OverviewViewModel = this.LoadOverviewModel(teamName);
+            }
+            else if (section == "invitations")
+            {
+                teamViewModel.TeamProfileViewModel.EventInvitationsViewModel = this.LoadInvitationsViewModel(teamName);
+            }
+            else if (section == "requests")
+            {
+                teamViewModel.TeamProfileViewModel.UserJoinRequests = this.LoadUserJoinRequestsViewModel(teamName);
+            }
+            else if (section == "settings")
+            {
+                teamViewModel.TeamProfileViewModel.SettingsViewModel = this.LoadSettingsViewModel(teamName);
+            }
+            else
+            {
+                return null;
+            }
+
+            teamViewModel.LogoUrl = this.fileService.GetPictureAsBase64(teamViewModel.ImageFileName);
+
+            teamViewModel.TeamProfileViewModel.Section = section;
+            teamViewModel.TeamProfileViewModel.TeamName = teamName;
+
+            return teamViewModel;
+        }
+
+        public void SendJoinRequest(int teamId, string userId)
+        {
+            Invitation invitation = new Invitation
+            {
+                InvitedUserId = userId,
+                SenderUserId = userId,
+                TeamId = teamId
+            };
+
+            this.invitationRepository.Add(invitation);
         }
     }
 }

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Linq;
+    using System.Net;
     using System.Threading.Tasks;
     using System.Web;
     using System.Web.Mvc;
@@ -18,6 +19,9 @@
     using TeamBuilder.Clients.Models.Account;
     using TeamBuilder.Clients.Models.Account.Details;
     using TeamBuilder.Clients.Models.FriendRequest;
+    using TeamBuilder.Clients.Models.Team;
+    using TeamBuilder.Data;
+    using TeamBuilder.Data.Common.Implementations;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
     using TeamBuilder.Services.Data.Implementations;
@@ -30,6 +34,8 @@
 
         private readonly IFileService fileService;
 
+        private readonly ITeamService teamService;
+
         private ApplicationSignInManager signInManager;
 
         private ApplicationUserManager userManager;
@@ -38,6 +44,10 @@
         {
             // TODO: Use Ninject.
             this.fileService = new DropboxService();
+            this.teamService = new TeamService(
+                new TeamRepository(TeamBuilderContext.Create()),
+                new InvitationRepository(TeamBuilderContext.Create()),
+                this.fileService);
         }
 
         public AccountController(
@@ -450,6 +460,41 @@
             return this.View(user);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public JsonResult SendJoinRequest(SendJoinRequestViewModel model)
+        {
+            ApplicationUser user = this.UserManager.FindById(model.UserId);
+
+            if (user == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    Data = new { error = "User does not exist!" },
+                    ContentType = "application/json"
+                };
+            }
+
+            Team team = this.teamService.Find(model.TeamId);
+            if (team == null)
+            {
+                this.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return new JsonResult
+                {
+                    Data = new { error = "Team does not exist!" },
+                    ContentType = "application/json"
+                };
+            }
+
+            this.teamService.SendJoinRequest(model.TeamId, model.UserId);
+            return new JsonResult
+            {
+                Data = new { message = "Request sent!" },
+                ContentType = "application/json"
+            };
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -559,13 +604,13 @@
                     }))
                     .ToList()
                     .Select(e => new EventListViewModel
-                     {
-                         Name = e.Name,
-                         Description = e.Description,
-                         StartDate = e.StartDate.ToString("dd/MM/yyyy"),
-                         EndDate = e.EndDate.ToString("dd/MM/yyyy"),
-                         EnrollmentEndTime = e.EnrollmentEndTime.ToString("dd/MM/yyyy HH:mm")
-                     })
+                    {
+                        Name = e.Name,
+                        Description = e.Description,
+                        StartDate = e.StartDate.ToString("dd/MM/yyyy"),
+                        EndDate = e.EndDate.ToString("dd/MM/yyyy"),
+                        EnrollmentEndTime = e.EnrollmentEndTime.ToString("dd/MM/yyyy HH:mm")
+                    })
                     .ToList();
 
             return events;

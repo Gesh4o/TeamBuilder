@@ -7,16 +7,25 @@
 
     public class TeamDetailsViewModel : IMapFrom<Team>
     {
+        public TeamDetailsViewModel()
+        {
+            TeamProfileViewModel = new TeamProfileViewModel();
+        }
+
         public int Id { get; set; }
 
         public string Name { get; set; }
 
         public string Acronym { get; set; }
 
-        public string Description { get; set; }
+        public SendJoinRequestViewModel SendJoinRequestViewModel { get; set; }
+
+        public TeamProfileViewModel TeamProfileViewModel { get; set; }  
+
+        public bool IsPartOfTeam { get; set; }
 
         [DisplayName("Logo")]
-        public string ImageContent { get; set; }
+        public string LogoUrl { get; set; }
 
         public string ImageFileName { get; set; }
     }

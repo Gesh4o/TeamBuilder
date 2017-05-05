@@ -1,0 +1,35 @@
+﻿@using TeamBuilder.Clients.Models.Team
+@model UserJoinRequestsViewModel
+
+<h3>Requests</h3>
+
+<div class="requesters">
+
+    @foreach (UserRequestViewModel user in this.Model.Users)
+    {
+        <hr />
+        using (Ajax.BeginForm(null, null, new AjaxOptions()
+        {
+            Url = Url.Action("ProcessUserRequest", "Team"),
+            HttpMethod = "post",
+            OnSuccess = "onProcessRequestSuccess",
+            OnFailure =  "onProcessRequestFail"
+        },
+        new { @class = "", id = $"user-{user.Username}-request-form" }))
+        {
+            @Html.AntiForgeryToken()
+            <input type="hidden" value="@user.Id" name="userId" />
+            <input type="hidden" value="@this.Model.TeamId" name="teamId" />
+
+            <p class="requester-username inline">@user.Username</p>
+
+            <button id="btn-accept-request" class="btn btn-success" type="submit" value="accept" name="result">
+                <span class="glyphicon glyphicon-ok"></span>
+            </button>
+
+            <button id="btn-decline-request" class="btn btn-danger" type="submit" value="decline" name="result">
+                <span class="glyphicon glyphicon-remove"></span>
+            </button>
+        }
+    }
+</div>

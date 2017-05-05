@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mocks\FileServiceMock.cs" />
+    <Compile Include="Mocks\InvitationRepositoryMock.cs" />
     <Compile Include="Mocks\TeamRepositoryMock.cs" />
     <Compile Include="TeamServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

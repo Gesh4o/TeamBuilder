@@ -10,6 +10,7 @@
 
     using TeamBuilder.Clients.Models.Team;
     using TeamBuilder.Data.Common.Contracts;
+    using TeamBuilder.Data.Common.Implementations;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
     using TeamBuilder.Services.Data.Implementations;
@@ -35,7 +36,7 @@
         public void Init()
         {
             this.repository = new TeamRepositoryMock();
-            this.teamService = new TeamService(this.repository, new FileServiceMock());
+            this.teamService = new TeamService(this.repository, new InvitationRepositoryMock(), new FileServiceMock());
 
             // Edit and Disband
             Mapper.Initialize(

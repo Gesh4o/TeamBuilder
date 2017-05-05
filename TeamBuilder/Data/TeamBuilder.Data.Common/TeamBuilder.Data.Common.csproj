@@ -56,8 +56,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\IInvitationRepository.cs" />
     <Compile Include="Contracts\IRepository.cs" />
     <Compile Include="Contracts\ITeamRepository.cs" />
+    <Compile Include="Implementations\InvitationRepository.cs" />
     <Compile Include="Implementations\Repository.cs" />
     <Compile Include="Implementations\TeamRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

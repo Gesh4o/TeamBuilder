@@ -173,6 +173,12 @@
     <Content Include="Views\Partial\Account\Teams.cshtml" />
     <Content Include="Views\Partial\Account\Events.cshtml" />
     <Content Include="Views\Partial\Account\Settings.cshtml" />
+    <Content Include="Views\Partial\Team\SendJoinRequest.cshtml" />
+    <Content Include="Views\Partial\Team\Profile.cshtml" />
+    <Content Include="Views\Partial\Team\Overview.cshtml" />
+    <Content Include="Views\Partial\Team\JoinRequests.cshtml" />
+    <Content Include="Views\Partial\Team\EventInvitations.cshtml" />
+    <Content Include="Views\Partial\Team\Settings.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Antlr3.Runtime">

@@ -1,0 +1,16 @@
+﻿@using TeamBuilder.Clients.Models.Team
+@model OverviewViewModel
+                    
+    
+<h3>Members</h3>
+              
+<div class="members">
+    @foreach (MemberViewModel member in this.Model.Members)
+    {
+        <hr />
+        <div>
+            <a href="/user/@member.Username"><img class="small-ico" src="@member.ProfilePictureLink" alt="@member.Username's picture'" /></a>
+            - @member.Username
+        </div>
+    }
+</div>

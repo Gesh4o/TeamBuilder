@@ -1,0 +1,42 @@
+﻿@model TeamBuilder.Clients.Models.Team.TeamProfileViewModel
+
+@{
+    string btnClass = "btn underline-nav-item";
+    string overviewClass = btnClass + (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section) ? " selected" : string.Empty);
+    string userJoinRequestClass = btnClass + (this.Model.Section == "requests" ? " selected" : string.Empty);
+    string eventsInvitationClass = btnClass + (this.Model.Section == "invitations" ? " selected" : string.Empty);
+    string settingsClass = btnClass + (this.Model.Section == "settings" ? " selected" : string.Empty);
+}
+
+<div class="col-md-9">
+    <nav class="underline-nav">
+        @Html.ActionLink("Overview", "Details", "Team", htmlAttributes: new { @class = overviewClass }, routeValues: new { section = "", teamName = this.Model.TeamName })
+        @if (this.Model.IsAuthenticated)
+        {
+            @Html.ActionLink("User Requests", "Details", "Team", htmlAttributes: new { @class = userJoinRequestClass }, routeValues: new { section = "requests", teamName = this.Model.TeamName })
+            @Html.ActionLink("Events Invitations", "Details", "Team", htmlAttributes: new { @class = eventsInvitationClass }, routeValues: new { section = "invitations", teamName = this.Model.TeamName })
+            @Html.ActionLink("Settings", "Details", "Team", htmlAttributes: new { @class = settingsClass }, routeValues: new { section = "settings", teamName = this.Model.TeamName })
+        }
+
+
+    </nav>
+
+    <div>
+        @if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
+        {
+            @Html.Partial("~/Views/Partial/Team/Overview.cshtml", this.Model.OverviewViewModel)
+        }
+        else if (this.Model.IsAuthenticated && this.Model.Section == "requests")
+        {
+            @Html.Partial("~/Views/Partial/Team/JoinRequests.cshtml", this.Model.UserJoinRequests)
+        }
+        else if (this.Model.IsAuthenticated && this.Model.Section == "invitations")
+        {
+            @Html.Partial("~/Views/Partial/Team/EventInvitations.cshtml", this.Model.EventInvitationsViewModel)
+        }
+        else if (this.Model.IsAuthenticated && this.Model.Section == "settings")
+        {
+            @Html.Partial("~/Views/Partial/Team/Settings.cshtml", this.Model.SettingsViewModel)
+        }
+    </div>
+</div>

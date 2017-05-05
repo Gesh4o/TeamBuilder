@@ -1,53 +1,31 @@
-﻿@model TeamBuilder.Clients.Models.Team.TeamDetailsViewModel
+﻿@using TeamBuilder.Clients.Models.Team
 
+@model TeamDetailsViewModel
 @{
     ViewBag.Title = "Details";
 }
 
-<div class="container body-content">
 
-    <h2>Details</h2>
+<main class="container body-content">
+    <aside class="col-md-3">
+        <img class="img-responsive" src="@this.Model.LogoUrl" alt="@this.Model.Name's picture" />
+        <h4>@this.Model.Name [<span>@this.Model.Acronym</span>]</h4>
+        <h5></h5>
 
-    <div>
-        <h4>Team</h4>
         <hr />
-        <dl class="dl-horizontal">
-            <dt>
-                @Html.DisplayNameFor(model => model.Name)
-            </dt>
+        @if (!this.Model.IsPartOfTeam)
+        {
+            @Html.Partial("~/Views/Partial/Team/SendJoinRequest.cshtml", this.Model.SendJoinRequestViewModel)
+            <hr />
+        }         
 
-            <dd>
-                @Html.DisplayFor(model => model.Name)
-            </dd>
+    </aside>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.Description)
-            </dt>
+    <section class="profile">
+        @Html.Partial("~/Views/Partial/Team/Profile.cshtml", this.Model.TeamProfileViewModel)
+    </section>
+</main>
 
-            <dd>
-                @Html.DisplayFor(model => model.Description)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.Acronym)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Acronym)
-            </dd>
-
-            <dt>
-                @Html.DisplayNameFor(model => model.ImageContent)
-            </dt>
-
-            <dd>
-                <img src="@Model.ImageContent" alt="@Model.Name's Logo" />
-            </dd>
-        </dl>
-    </div>
-    <p>
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-        @Html.ActionLink("Disband", "Disband", new { id = Model.Id }) |
-    </p>
-
-</div>
+@section scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

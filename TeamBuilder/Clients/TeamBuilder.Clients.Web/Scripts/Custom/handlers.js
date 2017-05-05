@@ -73,3 +73,28 @@ function onPasswordChangeFail(data) {
 function clearForm(formId) {
     $(`#${formId}`)[0].reset();
 }
+
+// -- Team settings.
+// Handle send join request.
+function onInviteRequestSendSuccess(response) {
+    swal("Good job!", response.message, "success");
+}
+
+function onInviteRequestSendFail(data) {
+    swal(data.responseJSON.error);
+}
+
+function onProcessRequestSuccess(response) {
+    swal(response.message, "", "success");
+    $(`#user-${response.username}-request-form`).remove();
+}
+
+function onProcessRequestFail(data) {
+    swal( data.error);
+}
+
+
+function onInviteRequestFail(data) {
+    swal(data.responseJSON.error);
+}
+

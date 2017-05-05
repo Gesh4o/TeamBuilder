@@ -112,9 +112,19 @@
     <Compile Include="Manage\SetPasswordViewModel.cs" />
     <Compile Include="Manage\VerifyPhoneNumberViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Team\UserJoinRequestsViewModel.cs" />
+    <Compile Include="Team\MemberViewModel.cs" />
+    <Compile Include="Team\MemberWithRoleViewModel.cs" />
+    <Compile Include="Team\OverviewViewModel.cs" />
+    <Compile Include="Team\RequestsViewModel.cs" />
+    <Compile Include="Team\SendJoinRequestViewModel.cs" />
+    <Compile Include="Team\SettingsViewModel.cs" />
     <Compile Include="Team\TeamAddBindingModel.cs" />
     <Compile Include="Team\TeamDetailsViewModel.cs" />
     <Compile Include="Team\TeamEditBindingModel.cs" />
+    <Compile Include="Team\TeamProfileViewModel.cs" />
+    <Compile Include="Team\UserRequestBindingModel.cs" />
+    <Compile Include="Team\UserRequestViewModel.cs" />
     <Compile Include="Team\Validation\TeamAdditionValidator.cs" />
   </ItemGroup>
   <ItemGroup>
