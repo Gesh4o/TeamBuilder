@@ -13,7 +13,7 @@
         <h5>@this.Model.FullName</h5>
 
         <hr />
-        @if (!this.Model.IsSelf)
+        @if (!this.Model.IsSelf && this.User.Identity.IsAuthenticated)
         {
             @Html.Partial("~/Views/Partial/Account/AddOrRemoveUser.cshtml", this.Model.AddOrRemoveFriendViewModel)
             <hr />

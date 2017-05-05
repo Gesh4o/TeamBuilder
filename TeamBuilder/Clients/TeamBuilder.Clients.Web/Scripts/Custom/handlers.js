@@ -33,8 +33,7 @@ function onProfilePictureUpdateSuccess(response) {
 }
 
 function onProfilePictureUpdateFail(data) {
-    let parsedData = JSON.parse(data);
-    swal(parsedData.error);
+    swal('Error');
     clearForm('update-picture-form');
 }
 

@@ -1,4 +1,5 @@
-﻿@{
+﻿@using TeamBuilder.Clients.Models.Home
+@{
     ViewBag.Title = "Index";
 }
 
@@ -42,10 +43,10 @@
             @Html.ActionLink("New team", "Create", "Team", htmlAttributes: new { id = "new-team", @class = "btn-success btn-sm pull-right" }, routeValues: new {})
         </h4>
         <section class="my-teams">
-            @foreach (var t in ViewBag.Teams)
+            @foreach (var t in ViewBag.Teams as IEnumerable<TeamViewModel>)
             {
                 <div class="listed-team">
-                    <a href="/team/details/@t.Id"><i class="fa fa-users" aria-hidden="true"></i>@t.Name</a>
+                    <a href="/teams/@t.Name"><i class="fa fa-users" aria-hidden="true"></i>@t.Name</a>
                 </div>
             }
         </section>

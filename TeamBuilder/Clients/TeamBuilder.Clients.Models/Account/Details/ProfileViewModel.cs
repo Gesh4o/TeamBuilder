@@ -22,5 +22,7 @@
         public IEnumerable<EventListViewModel> Events { get; set; }
 
         public string Section { get; set; }
+
+        public bool IsAuthenticated { get; set; }
     }
 }

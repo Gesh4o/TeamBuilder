@@ -8,6 +8,8 @@
 
     using AutoMapper.QueryableExtensions;
 
+    using Microsoft.AspNet.Identity;
+
     using TeamBuilder.Clients.Common;
     using TeamBuilder.Clients.Infrastructure.Identity;
     using TeamBuilder.Clients.Models.Home;
@@ -50,12 +52,7 @@
                     new EventViewModel { Id = 3, Name = "Aniventure", StartDate = "03/11/2017" }
                 };
 
-                ViewBag.Teams = new[]
-                {
-                    new TeamViewModel { Id = 1, Name = "Noxus" },
-                    new TeamViewModel { Id = 2, Name = "Demacia" },
-                    new TeamViewModel { Id = 3, Name = "Ionia" }
-                };
+                ViewBag.Teams = this.teamService.GetAllTeamsByCreatorId(this.User.Identity.GetUserId());
 
                 return this.View();
             }

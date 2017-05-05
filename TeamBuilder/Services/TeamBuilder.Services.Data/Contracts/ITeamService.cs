@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
+    using TeamBuilder.Clients.Models.Home;
     using TeamBuilder.Clients.Models.Team;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common.Contracts;
@@ -39,5 +40,7 @@
         TeamDetailsViewModel GetTeamDetails(string teamName, string section, string currentUserId);
 
         void SendJoinRequest(int modelId, string userId);
+
+        IEnumerable<TeamViewModel> GetAllTeamsByCreatorId(string userId);
     }
 }

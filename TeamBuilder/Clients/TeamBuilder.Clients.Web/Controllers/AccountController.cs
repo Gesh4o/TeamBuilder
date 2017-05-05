@@ -556,7 +556,8 @@
                     {
                         Id = u.Id,
                         Username = u.UserName,
-                        Section = section
+                        Section = section,
+                        IsAuthenticated = currentUserId == u.Id
                     }
                 })
                 .FirstOrDefault();

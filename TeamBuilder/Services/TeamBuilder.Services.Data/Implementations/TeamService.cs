@@ -8,6 +8,7 @@
 
     using AutoMapper;
 
+    using TeamBuilder.Clients.Models.Home;
     using TeamBuilder.Clients.Models.Team;
     using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Models;
@@ -282,6 +283,11 @@
             };
 
             this.invitationRepository.Add(invitation);
+        }
+
+        public IEnumerable<TeamViewModel> GetAllTeamsByCreatorId(string userId)
+        {
+            return this.teamRepository.GetAll<TeamViewModel>(t => t.CreatorId == userId);
         }
     }
 }
