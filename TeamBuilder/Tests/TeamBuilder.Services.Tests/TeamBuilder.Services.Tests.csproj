@@ -1,24 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.props" Condition="Exists('..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.props')" />
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{20DA5249-C64F-482F-BED8-3C964392D7CE}</ProjectGuid>
+    <ProjectGuid>{AFEBCB87-C097-4429-B4DD-43F105A3D057}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>TeamBuilder.Services.Tests</RootNamespace>
     <AssemblyName>TeamBuilder.Services.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">15.0</VisualStudioVersion>
-    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-    <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
-    <IsCodedUITest>False</IsCodedUITest>
-    <TestProjectType>UnitTest</TestProjectType>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -41,6 +33,12 @@
     <Reference Include="AutoMapper, Version=6.0.2.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>..\..\packages\AutoMapper.6.0.2\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="nunit.framework, Version=3.6.1.0, Culture=neutral, PublicKeyToken=2638cd05610744eb, processorArchitecture=MSIL">
       <HintPath>..\..\packages\NUnit.3.6.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
@@ -48,16 +46,19 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Mocks\FileServiceMock.cs" />
     <Compile Include="Mocks\InvitationRepositoryMock.cs" />
     <Compile Include="Mocks\TeamRepositoryMock.cs" />
-    <Compile Include="TeamServiceTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
+    <Compile Include="TeamServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Clients\TeamBuilder.Clients.Common\TeamBuilder.Clients.Common.csproj">
@@ -65,15 +66,15 @@
       <Name>TeamBuilder.Clients.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Clients\TeamBuilder.Clients.Models\TeamBuilder.Clients.Models.csproj">
-      <Project>{ED6DD932-B8EE-4B03-82C0-48E9069E4050}</Project>
+      <Project>{ed6dd932-b8ee-4b03-82c0-48e9069e4050}</Project>
       <Name>TeamBuilder.Clients.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\TeamBuilder.Data.Common\TeamBuilder.Data.Common.csproj">
-      <Project>{F11FD5D8-4E5C-4201-88D6-667E9CD144A0}</Project>
+      <Project>{f11fd5d8-4e5c-4201-88d6-667e9cd144a0}</Project>
       <Name>TeamBuilder.Data.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\TeamBuilder.Data.Models\TeamBuilder.Data.Models.csproj">
-      <Project>{01F892C3-DAC7-4078-BFC6-FD5EF3A6BDBE}</Project>
+      <Project>{01f892c3-dac7-4078-bfc6-fd5ef3a6bdbe}</Project>
       <Name>TeamBuilder.Data.Models</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\TeamBuilder.Services.Common\TeamBuilder.Services.Common.csproj">
@@ -81,22 +82,17 @@
       <Name>TeamBuilder.Services.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Services\TeamBuilder.Services.Data\TeamBuilder.Services.Data.csproj">
-      <Project>{15B83E02-74B5-43D5-8F80-4FC58DF0CD7D}</Project>
+      <Project>{15b83e02-74b5-43d5-8f80-4fc58df0cd7d}</Project>
       <Name>TeamBuilder.Services.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TeamBuilder.Tests.Common\TeamBuilder.Tests.Common.csproj">
-      <Project>{92E93212-A8BE-4ED2-B461-84F1ABA0E37F}</Project>
+      <Project>{92e93212-a8be-4ed2-b461-84f1aba0e37f}</Project>
       <Name>TeamBuilder.Tests.Common</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.props'))" />
-    <Error Condition="!Exists('..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets'))" />
-  </Target>
-  <Import Project="..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets" Condition="Exists('..\..\packages\MSTest.TestAdapter.1.1.11\build\net45\MSTest.TestAdapter.targets')" />
 </Project>
