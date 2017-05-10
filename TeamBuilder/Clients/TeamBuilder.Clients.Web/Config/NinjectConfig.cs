@@ -1,68 +1,45 @@
-using TeamBuilder.Web;
-
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(NinjectWebCommon), "Stop")]
-
-namespace TeamBuilder.Web
+﻿namespace TeamBuilder.Web
 {
-    using System;
     using System.Data.Entity;
+    using System.Reflection;
     using System.Web;
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
-    using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+    using Microsoft.Owin.Security;
 
     using Ninject;
     using Ninject.Extensions.Conventions;
     using Ninject.Web.Common;
+    using Ninject.Web.Common.OwinHost;
+
+    using Owin;
 
     using TeamBuilder.Clients.Common;
+    using TeamBuilder.Clients.Infrastructure.Identity;
     using TeamBuilder.Data;
-    using TeamBuilder.Data.Common.Contracts;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Common.Contracts;
     using TeamBuilder.Services.Data.Contracts;
     using TeamBuilder.Services.Data.Implementations;
 
-    public static class NinjectWebCommon 
+    public class NinjectConfig
     {
-        private static readonly Bootstrapper Bootstrapper = new Bootstrapper();
-
-        public static void Start() 
+        public static void Configure(IAppBuilder app)
         {
-            DynamicModuleUtility.RegisterModule(typeof(OnePerRequestHttpModule));
-            DynamicModuleUtility.RegisterModule(typeof(NinjectHttpModule));
-            Bootstrapper.Initialize(CreateKernel);
-        }
-        
-        public static void Stop()
-        {
-            Bootstrapper.ShutDown();
-        }
-        
-        private static IKernel CreateKernel()
-        {
-            var kernel = new StandardKernel();
-            try
-            {
-                kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
-                kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
-
-                RegisterServices(kernel);
-                return kernel;
-            }
-            catch
-            {
-                kernel.Dispose();
-                throw;
-            }
+            IKernel kernel = CreateKernel();
+            app.UseNinjectMiddleware(() => kernel);
         }
 
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<DbContext>().To<TeamBuilderContext>().InRequestScope();
             kernel.Bind<IUserStore<ApplicationUser>>().To<UserStore<ApplicationUser>>().InRequestScope();
+            kernel.Bind<ApplicationUserManager>().ToSelf();
+            kernel.Bind<ApplicationSignInManager>().ToSelf();
+            kernel.Bind<IAuthenticationManager>()
+                .ToMethod(
+                    x => HttpContext.Current.GetOwinContext().Authentication);
             kernel.Bind<IRoleStore<IdentityRole>>().To<TeamBuilderRoleStore>().InRequestScope();
             kernel.Bind<IFileService>().To<DropboxService>();
 
@@ -79,6 +56,24 @@ namespace TeamBuilder.Web
                         .SelectAllClasses()
                         .Where(type => type.Name.Contains("Repository"))
                         .BindDefaultInterface());
-        }        
+        }
+
+        private static IKernel CreateKernel()
+        {
+            IKernel k = new StandardKernel();
+            k.Load(Assembly.GetExecutingAssembly());
+
+            try
+            {
+                RegisterServices(k);
+            }
+            catch
+            {
+                k.Dispose();
+                throw;
+            }
+
+            return k;
+        }
     }
 }

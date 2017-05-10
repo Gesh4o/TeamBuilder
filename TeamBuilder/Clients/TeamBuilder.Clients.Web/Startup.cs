@@ -11,6 +11,7 @@ namespace TeamBuilder.Web
     {
         public void Configuration(IAppBuilder app)
         {
+            NinjectConfig.Configure(app);
             StartupAuth authStartup = new StartupAuth();
             authStartup.ConfigureAuth(app);
         }

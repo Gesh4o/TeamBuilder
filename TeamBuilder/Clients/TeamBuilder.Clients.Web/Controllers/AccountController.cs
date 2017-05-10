@@ -40,22 +40,16 @@
 
         private ApplicationUserManager userManager;
 
-        public AccountController()
-        {
-            // TODO: Use Ninject.
-            this.fileService = new DropboxService();
-            this.teamService = new TeamService(
-                new TeamRepository(TeamBuilderContext.Create()),
-                new InvitationRepository(TeamBuilderContext.Create()),
-                this.fileService);
-        }
-
         public AccountController(
             ApplicationUserManager userManager,
-            ApplicationSignInManager signInManager) : this()
+            ApplicationSignInManager signInManager,
+            IFileService fileService,
+            ITeamService teamService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+            this.fileService = fileService;
+            this.teamService = teamService;
         }
 
         public ApplicationSignInManager SignInManager
