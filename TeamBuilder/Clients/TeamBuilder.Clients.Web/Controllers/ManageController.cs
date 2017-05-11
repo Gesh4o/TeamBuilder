@@ -17,7 +17,6 @@
     using TeamBuilder.Clients.Models.Manage;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
-    using TeamBuilder.Services.Data.Implementations;
 
     [Authorize]
     public class ManageController : Controller
@@ -31,16 +30,11 @@
 
         private ApplicationUserManager userManager;
 
-        public ManageController()
-        {
-            // TODO: Use Ninject.
-            this.fileService = new DropboxService();
-        }
-
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) : this()
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, IFileService fileService)
         {
             this.UserManager = userManager;
             this.SignInManager = signInManager;
+            this.fileService = fileService;
         }
 
         public enum ManageMessageId
