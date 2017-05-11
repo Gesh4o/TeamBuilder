@@ -1097,7 +1097,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  /* color: #337ab7; */
+  color: #337ab7;
   text-decoration: none;
 }
 a:hover,
@@ -2650,7 +2650,7 @@ input[type="search"] {
 .radio-inline input[type="radio"],
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
-  /* position: absolute; */
+  position: absolute;
   margin-top: 4px \9;
   margin-left: -20px;
 }
@@ -3002,7 +3002,7 @@ select[multiple].input-lg {
 }
 .btn {
   display: inline-block;
-   padding: 6px 12px; 
+  padding: 6px 12px;
   margin-bottom: 0;
   font-size: 14px;
   font-weight: normal;
@@ -3011,12 +3011,12 @@ select[multiple].input-lg {
   white-space: nowrap;
   vertical-align: middle;
   -ms-touch-action: manipulation;
-  touch-action: manipulation;
+      touch-action: manipulation;
   cursor: pointer;
   -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
   background-image: none;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -4326,7 +4326,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-nav > li > a {
   padding-top: 10px;
   padding-bottom: 10px;
-  /* line-height: 20px; */
+  line-height: 20px;
 }
 @media (max-width: 767px) {
   .navbar-nav .open .dropdown-menu {
