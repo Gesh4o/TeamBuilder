@@ -37,6 +37,7 @@ iframe {
     padding: 0;
     position: initial;
     background-color: #fff;
+    margin-bottom: 20px;
 }
 
     #logged-header li a:hover {
@@ -249,8 +250,4 @@ li.navbar-events a {
 
 #btn-decline-request, #btn-accept-request {
     margin-left: 15px;
-}
-
-.header-margin {
-    margin-bottom: 20px;
 }
