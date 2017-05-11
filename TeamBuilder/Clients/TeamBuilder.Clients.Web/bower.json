@@ -3,6 +3,6 @@
   "private": true,
   "directory": "lib",
   "dependencies": {
-    "sweetalert": "bootstrap-sweetalert#v0.3.1"
+    "sweetalert2": "v6.6.2"
   }
 }

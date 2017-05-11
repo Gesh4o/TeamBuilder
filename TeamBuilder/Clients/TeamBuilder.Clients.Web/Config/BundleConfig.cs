@@ -28,7 +28,7 @@
                 .Include("~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/sweetalert")
-                .Include("~/lib/sweetalert/lib/sweet-alert.min.js"));
+                .Include("~/lib/sweetalert2/dist/sweetalert2.min.js"));
 
             bundles.Add(
                 new ScriptBundle("~/bundles/bootstrap")
@@ -43,7 +43,7 @@
 
             bundles.Add(new StyleBundle("~/Content/styles")
                 .Include(
-                    "~/Content/styles.css", "~/lib/sweetalert/lib/sweet-alert.css"));
+                    "~/Content/styles.css", "~/lib/sweetalert2/dist/sweetalert2.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/plugins")
                 .Include(
