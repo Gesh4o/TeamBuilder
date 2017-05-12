@@ -20,11 +20,8 @@
     using TeamBuilder.Clients.Models.Account.Details;
     using TeamBuilder.Clients.Models.FriendRequest;
     using TeamBuilder.Clients.Models.Team;
-    using TeamBuilder.Data;
-    using TeamBuilder.Data.Common.Implementations;
     using TeamBuilder.Data.Models;
     using TeamBuilder.Services.Data.Contracts;
-    using TeamBuilder.Services.Data.Implementations;
 
     [Authorize]
     public class AccountController : Controller
@@ -449,8 +446,9 @@
         [AllowAnonymous]
         public ActionResult Details(string username, string section)
         {
+            // TODO: Validate username and section.
             UserDetailsViewModel user = this.GetUserDetails(username, section);
-
+          
             return this.View(user);
         }
 
@@ -529,8 +527,9 @@
 
         private UserDetailsViewModel GetUserDetails(string username, string section = "")
         {
-            string currentUsername = this.User.Identity.GetUserName();
+            string currentUserUsername = this.User.Identity.GetUserName();
             string currentUserId = this.User.Identity.GetUserId();
+
             UserDetailsViewModel user = this.UserManager
                 .Users
                 .Where(u => u.UserName == username)
@@ -538,7 +537,7 @@
                 {
                     Username = u.UserName,
                     FullName = u.FirstName + " " + u.LastName,
-                    IsSelf = currentUsername == u.UserName,
+                    IsAllowedToAddOrRemoveFriends = currentUserUsername != null  && currentUserUsername != u.UserName,
                     ProfilePictureUrl = u.ProfilePicturePath,
                     AddOrRemoveFriendViewModel = new AddOrRemoveFriendViewModel
                     {
@@ -561,22 +560,32 @@
                 throw new NullReferenceException();
             }
 
-            if (string.IsNullOrEmpty(section) ||
-                section == "overview" ||
-                section == "settings")
+            if (section == "overview" || string.IsNullOrEmpty(section))
             {
+                user.Profile.View = "Overview";
+                user.Profile.Data = user.Profile.Activities;
             }
             else if (section == "teams")
             {
+                user.Profile.View = "Teams";
                 user.Profile.Teams = this.LoadUserTeams(username);
+                user.Profile.Data = user.Profile.Teams;
             }
             else if (section == "events")
             {
+                user.Profile.View = "Events";
                 user.Profile.Events = this.LoadUserEvents(username);
+                user.Profile.Data = user.Profile.Events;
             }
-            else
+            else if (section == "settings")
             {
-                return null;
+                if (!this.User.Identity.IsAuthenticated)
+                {
+                    // TODO: Process as invalid request.
+                }
+
+                user.Profile.View = "Settings";
+                user.Profile.Data = user.Profile.Id;
             }
 
             user.ProfilePictureUrl = this.fileService.GetPictureAsBase64(user.ProfilePictureUrl);

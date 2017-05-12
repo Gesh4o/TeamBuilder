@@ -19,7 +19,7 @@
 
         public string ProfilePictureUrl { get; set; }
 
-        public bool IsSelf { get; set; }
+        public bool IsAllowedToAddOrRemoveFriends { get; set; }
 
         public ICollection<FriendViewModel> Friends { get; set; }
 

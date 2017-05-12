@@ -1,6 +1,6 @@
 ﻿@model TeamBuilder.Clients.Models.FriendRequest.AddOrRemoveFriendViewModel
    
-@if (this.Model.IsFriend)
+@if (!this.Model.IsFriend)
 {
     using (Ajax.BeginForm("SendFriendRequest", "Account",
         new AjaxOptions()

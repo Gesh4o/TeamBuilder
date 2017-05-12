@@ -13,7 +13,8 @@
         <h5>@this.Model.FullName</h5>
 
         <hr />
-        @if (!this.Model.IsSelf && this.User.Identity.IsAuthenticated)
+        
+        @if (this.Model.IsAllowedToAddOrRemoveFriends)
         {
             @Html.Partial("~/Views/Partial/Account/AddOrRemoveUser.cshtml", this.Model.AddOrRemoveFriendViewModel)
             <hr />
@@ -32,8 +33,3 @@
         @Html.Partial("~/Views/Partial/Account/Profile.cshtml", this.Model.Profile)
     </section>                                              
 </main>
-
-@section scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script src="~/Scripts/Custom/ajax.js?token=1213112.js"></script>
-}

@@ -18,8 +18,9 @@
         }
     </nav>
 
-    <div>
-        @if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
+    <div>          
+
+        @*@if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
         {
             @Html.Partial("~/Views/Partial/Account/Overview.cshtml", this.Model.Activities)
         }
@@ -34,6 +35,9 @@
         else if (this.Model.IsAuthenticated && this.Model.Section == "settings")
         {
             @Html.Partial("~/Views/Partial/Account/Settings.cshtml", this.Model.Id)
-        }
+        }*@
+        @Html.Partial($"~/Views/Partial/Account/{this.Model.View}.cshtml", this.Model.Data)
+
+
     </div>
 </div>

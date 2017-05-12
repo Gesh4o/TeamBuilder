@@ -24,5 +24,9 @@
         public string Section { get; set; }
 
         public bool IsAuthenticated { get; set; }
+
+        public string View { get; set; }
+
+        public object Data { get; set; }
     }
 }
