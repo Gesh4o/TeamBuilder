@@ -9,7 +9,7 @@
             <li class="navbar-events"><a href="/requests"><i class="fa fa-ticket navbar-ico" aria-hidden="true"></i><span class="navbar-number">3</span></a></li>
             <li class="navbar-events"><a href="/invitations"><i class="fa fa-group navbar-ico" aria-hidden="true"></i><span class="navbar-number">3</span></a></li>
             <li>
-                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Details", "Account", routeValues: new { username = User.Identity.GetUserName() }, htmlAttributes: new { title = "Manage" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
         </ul>
