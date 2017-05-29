@@ -46,8 +46,11 @@ function showFileLoader(callback) {
     }, callback);
 }
 
-
 // Handle change EMAIL request.
+function onChangeEmailClick() {
+    $("#change-email-form").submit();
+}
+
 function onEmailChangeSuccess(response) {
     swal("Good job!", response.message, "success");
     clearForm('change-email-form');
@@ -89,9 +92,8 @@ function onProcessRequestSuccess(response) {
 }
 
 function onProcessRequestFail(data) {
-    swal( data.error);
+    swal(data.error);
 }
-
 
 function onInviteRequestFail(data) {
     swal(data.responseJSON.error);

@@ -191,13 +191,6 @@
                 var user = UserManager.FindByIdAsync(User.Identity.GetUserId());
                 user.Wait();
 
-                if (user.Result != null)
-                {
-                    var signIn = SignInManager.SignInAsync(user.Result, isPersistent: false, rememberBrowser: false);
-
-                    signIn.Wait();
-                }
-
                 return new JsonResult
                 {
                     Data = new { message = "Password successfully changed." },
