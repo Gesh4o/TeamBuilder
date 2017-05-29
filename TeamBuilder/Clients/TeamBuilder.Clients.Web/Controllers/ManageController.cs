@@ -188,9 +188,6 @@
 
             if (result.Result.Succeeded)
             {
-                var user = UserManager.FindByIdAsync(User.Identity.GetUserId());
-                user.Wait();
-
                 return new JsonResult
                 {
                     Data = new { message = "Password successfully changed." },
