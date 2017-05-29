@@ -12,6 +12,7 @@
         @Html.ActionLink("Overview", "Details", "Account", htmlAttributes: new { @class = overviewClass }, routeValues: new { username = this.Model.Username, section = "" })
         @Html.ActionLink("Teams", "Details", "Account", htmlAttributes: new { @class = teamsClass }, routeValues: new { username = this.Model.Username, section = "teams" })
         @Html.ActionLink("Events", "Details", "Account", htmlAttributes: new { @class = eventsClass }, routeValues: new { username = this.Model.Username, section = "events" })
+        
         @if (this.Model.IsAuthenticated)
         {
             @Html.ActionLink("Settings", "Details", "Account", htmlAttributes: new { @class = settingsClass }, routeValues: new { username = this.Model.Username, section = "settings" })
@@ -19,25 +20,6 @@
     </nav>
 
     <div>          
-
-        @*@if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
-        {
-            @Html.Partial("~/Views/Partial/Account/Overview.cshtml", this.Model.Activities)
-        }
-        else if (this.Model.Section == "teams")
-        {
-            @Html.Partial("~/Views/Partial/Account/Teams.cshtml", this.Model.Teams)
-        }
-        else if (this.Model.Section == "events")
-        {
-            @Html.Partial("~/Views/Partial/Account/Events.cshtml", this.Model.Events)
-        }
-        else if (this.Model.IsAuthenticated && this.Model.Section == "settings")
-        {
-            @Html.Partial("~/Views/Partial/Account/Settings.cshtml", this.Model.Id)
-        }*@
         @Html.Partial($"~/Views/Partial/Account/{this.Model.View}.cshtml", this.Model.Data)
-
-
     </div>
 </div>

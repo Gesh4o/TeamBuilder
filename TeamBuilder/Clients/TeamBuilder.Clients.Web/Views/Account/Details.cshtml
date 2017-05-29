@@ -32,4 +32,8 @@
     <section class="profile">
         @Html.Partial("~/Views/Partial/Account/Profile.cshtml", this.Model.Profile)
     </section>                                              
-</main>
+</main>                 
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
