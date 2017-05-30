@@ -22,7 +22,7 @@
 
         public TeamProfileViewModel TeamProfileViewModel { get; set; }  
 
-        public bool IsPartOfTeam { get; set; }
+        public bool CanSentJoinRequest { get; set; }
 
         [DisplayName("Logo")]
         public string LogoUrl { get; set; }

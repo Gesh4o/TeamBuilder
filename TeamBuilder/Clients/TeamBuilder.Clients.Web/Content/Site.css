@@ -260,12 +260,18 @@ li.navbar-events a {
 }
 
 #register-form-validation-summary li {
-   text-decoration-line: none;
-   list-style: none;
-   font-size: 1.2em;
-   font-weight: bold;
+    text-decoration-line: none;
+    list-style: none;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 #register-form-label {
     padding-left: 10px;
+}
+
+.team-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }

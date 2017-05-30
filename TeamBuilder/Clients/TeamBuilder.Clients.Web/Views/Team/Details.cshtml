@@ -9,15 +9,21 @@
 <main class="container body-content">
     <aside class="col-md-3">
         <img class="img-responsive" src="@this.Model.LogoUrl" alt="@this.Model.Name's picture" />
-        <h4>@this.Model.Name [<span>@this.Model.Acronym</span>]</h4>
-        <h5></h5>
+
+        <div class="team-info">
+            <h4>@this.Model.Name [<span>@this.Model.Acronym</span>]</h4>
+
+            <h4>
+                @if (this.Model.CanSentJoinRequest)
+                {
+                    @Html.Partial("~/Views/Partial/Team/SendJoinRequest.cshtml", this.Model.SendJoinRequestViewModel)
+                }
+            </h4>
+        </div>
+
 
         <hr />
-        @if (!this.Model.IsPartOfTeam)
-        {
-            @Html.Partial("~/Views/Partial/Team/SendJoinRequest.cshtml", this.Model.SendJoinRequestViewModel)
-            <hr />
-        }         
+
 
     </aside>
 

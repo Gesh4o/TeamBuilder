@@ -225,7 +225,8 @@
                         Name = t.Name,
                         Acronym = t.Acronym,
                         ImageFileName = t.ImageFileName,
-                        IsPartOfTeam = t.Members.Any(m => m.UserId == currentUserId),
+                        CanSentJoinRequest = !string.IsNullOrEmpty(currentUserId) &&
+                            t.Members.All(m => m.UserId != currentUserId),
                         SendJoinRequestViewModel = new SendJoinRequestViewModel
                         {
                             TeamId = t.Id,
