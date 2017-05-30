@@ -212,6 +212,7 @@ li.navbar-events a {
 .inline, input.inline {
     display: inline-block;
 }
+
 .inline-group {
     padding-top: 10px;
 }
@@ -250,4 +251,15 @@ li.navbar-events a {
 
 #btn-decline-request, #btn-accept-request {
     margin-left: 15px;
+}
+
+#register-form-validation-summary ul {
+    padding-left: 10px;
+}
+
+#register-form-validation-summary li {
+   text-decoration-line: none;
+   list-style: none;
+   font-size: 1.2em;
+   font-weight: bold;
 }
