@@ -537,7 +537,7 @@
                 {
                     Username = u.UserName,
                     FullName = u.FirstName + " " + u.LastName,
-                    IsAllowedToAddOrRemoveFriends = currentUserUsername != null  && currentUserUsername != u.UserName,
+                    IsAllowedToAddOrRemoveFriends = this.User.Identity.IsAuthenticated && currentUserUsername != u.UserName,
                     ProfilePictureUrl = u.ProfilePicturePath,
                     AddOrRemoveFriendViewModel = new AddOrRemoveFriendViewModel
                     {
