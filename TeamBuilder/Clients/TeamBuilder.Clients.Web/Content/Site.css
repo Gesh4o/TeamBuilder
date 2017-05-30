@@ -1,5 +1,7 @@
 ﻿/* Set padding to keep content from hitting the edges */
 .body-content {
+    margin-top: 40px;
+    margin-bottom: 40px;
     padding-left: 15px;
     padding-right: 15px;
 }
@@ -262,4 +264,8 @@ li.navbar-events a {
    list-style: none;
    font-size: 1.2em;
    font-weight: bold;
+}
+
+#register-form-label {
+    padding-left: 10px;
 }
