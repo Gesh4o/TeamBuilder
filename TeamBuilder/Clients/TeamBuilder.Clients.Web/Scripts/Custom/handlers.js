@@ -80,6 +80,7 @@ function clearForm(formId) {
 // Handle send join request.
 function onInviteRequestSendSuccess(response) {
     swal("Good job!", response.message, "success");
+    $('#send-request-btn').parent().remove();
 }
 
 function onInviteRequestSendFail(data) {
@@ -88,7 +89,6 @@ function onInviteRequestSendFail(data) {
 
 function onProcessRequestSuccess(response) {
     swal(response.message, "", "success");
-    $(`#user-${response.username}-request-form`).remove();
 }
 
 function onProcessRequestFail(data) {
