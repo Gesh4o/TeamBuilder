@@ -375,9 +375,10 @@
             }
 
             string userId = this.User.Identity.GetUserId();
+
             ApplicationUser user = this.UserManager.Users.FirstOrDefault(u => u.Id == userId);
 
-            if (user.Email == model.Email)
+            if (user.Email == model.Email || this.userManager.Users.Any(u => u.Email == model.Email))
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
 
