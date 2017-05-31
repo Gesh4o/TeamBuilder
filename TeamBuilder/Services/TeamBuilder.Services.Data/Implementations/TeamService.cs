@@ -225,8 +225,7 @@
                         Name = t.Name,
                         Acronym = t.Acronym,
                         ImageFileName = t.ImageFileName,
-                        CanSentJoinRequest = !string.IsNullOrEmpty(currentUserId) &&
-                            t.Members.All(m => m.UserId != currentUserId),
+                        CanSentJoinRequest = this.GetCanSentJoinRequest(currentUserId, t),
                         SendJoinRequestViewModel = new SendJoinRequestViewModel
                         {
                             TeamId = t.Id,
@@ -293,6 +292,16 @@
         public IEnumerable<TeamViewModel> GetAllTeamsByCreatorId(string userId)
         {
             return this.teamRepository.GetAll<TeamViewModel>(t => t.CreatorId == userId);
+        }
+
+        private bool GetCanSentJoinRequest(string userId, Team team)
+        {
+            return !string.IsNullOrEmpty(userId) &&
+                   team.Members.All(m => m.UserId != userId) &&
+                   !this.invitationRepository.IsExisting(
+                        i => i.IsActive &&
+                        i.InvitedUserId == userId &&
+                        i.TeamId == team.Id);
         }
     }
 }
