@@ -18,25 +18,9 @@
             @Html.ActionLink("Settings", "Details", "Team", htmlAttributes: new { @class = settingsClass }, routeValues: new { section = "settings", teamName = this.Model.TeamName })
         }
 
-
     </nav>
 
     <div>
-        @if (this.Model.Section == "overview" || string.IsNullOrEmpty(this.Model.Section))
-        {
-            @Html.Partial("~/Views/Partial/Team/Overview.cshtml", this.Model.OverviewViewModel)
-        }
-        else if (this.Model.IsAuthenticated && this.Model.Section == "requests")
-        {
-            @Html.Partial("~/Views/Partial/Team/JoinRequests.cshtml", this.Model.UserJoinRequests)
-        }
-        else if (this.Model.IsAuthenticated && this.Model.Section == "invitations")
-        {
-            @Html.Partial("~/Views/Partial/Team/EventInvitations.cshtml", this.Model.EventInvitationsViewModel)
-        }
-        else if (this.Model.IsAuthenticated && this.Model.Section == "settings")
-        {
-            @Html.Partial("~/Views/Partial/Team/Settings.cshtml", this.Model.SettingsViewModel)
-        }
+        @Html.Partial($"~/Views/Partial/Team/{this.Model.View}.cshtml", this.Model.ViewData)
     </div>
 </div>

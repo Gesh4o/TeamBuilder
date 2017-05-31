@@ -171,8 +171,8 @@
     <Content Include="Views\Partial\Team\SendJoinRequest.cshtml" />
     <Content Include="Views\Partial\Team\Profile.cshtml" />
     <Content Include="Views\Partial\Team\Overview.cshtml" />
-    <Content Include="Views\Partial\Team\JoinRequests.cshtml" />
-    <Content Include="Views\Partial\Team\EventInvitations.cshtml" />
+    <Content Include="Views\Partial\Team\Requests.cshtml" />
+    <Content Include="Views\Partial\Team\Invitations.cshtml" />
     <Content Include="Views\Partial\Team\Settings.cshtml" />
     <Content Include="security.config" />
   </ItemGroup>

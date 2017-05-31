@@ -29,13 +29,13 @@
 
         void AddUserToTeam(string userId, int teamId, TeamRole teamRole = TeamRole.Member);
 
-        OverviewViewModel LoadOverviewModel(string teamName);
+        OverviewViewModel GetOverviewModel(string teamName);
 
-        RequestsViewModel LoadInvitationsViewModel(string teamName);
+        RequestsViewModel GetInvitationsViewModel(string teamName);
 
-        UserJoinRequestsViewModel LoadUserJoinRequestsViewModel(string teamName);
+        UserJoinRequestsViewModel GetUserJoinRequestsViewModel(string teamName);
 
-        SettingsViewModel LoadSettingsViewModel(string teamName);
+        SettingsViewModel GetSettingsViewModel(string teamName);
 
         TeamDetailsViewModel GetTeamDetails(string teamName, string section, string currentUserId);
 

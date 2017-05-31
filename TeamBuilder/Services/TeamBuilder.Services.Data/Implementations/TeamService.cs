@@ -147,7 +147,7 @@
             this.teamRepository.Update(team);
         }
 
-        public OverviewViewModel LoadOverviewModel(string teamName)
+        public OverviewViewModel GetOverviewModel(string teamName)
         {
             Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Members");
 
@@ -174,7 +174,7 @@
             return model;
         }
 
-        public UserJoinRequestsViewModel LoadUserJoinRequestsViewModel(string teamName)
+        public UserJoinRequestsViewModel GetUserJoinRequestsViewModel(string teamName)
         {
             Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Invitations,Invitations.InvitedUser");
 
@@ -197,14 +197,14 @@
         }
 
         // TODO: Update
-        public RequestsViewModel LoadInvitationsViewModel(string teamName)
+        public RequestsViewModel GetInvitationsViewModel(string teamName)
         {
             RequestsViewModel model = new RequestsViewModel();
 
             return model;
         }
 
-        public SettingsViewModel LoadSettingsViewModel(string teamName)
+        public SettingsViewModel GetSettingsViewModel(string teamName)
         {
             Team team = this.teamRepository.SingleOrDefault(t => t.Name == teamName, "Members,Members.User");
             SettingsViewModel model = new SettingsViewModel();
@@ -247,19 +247,23 @@
 
             if (string.IsNullOrEmpty(section) || section == "overview")
             {
-                teamViewModel.TeamProfileViewModel.OverviewViewModel = this.LoadOverviewModel(teamName);
+                teamViewModel.TeamProfileViewModel.ViewData = this.GetOverviewModel(teamName);
+                teamViewModel.TeamProfileViewModel.View = "Overview";
             }
             else if (section == "invitations")
             {
-                teamViewModel.TeamProfileViewModel.EventInvitationsViewModel = this.LoadInvitationsViewModel(teamName);
+                teamViewModel.TeamProfileViewModel.View = "Invitations";
+                teamViewModel.TeamProfileViewModel.ViewData = this.GetInvitationsViewModel(teamName);
             }
             else if (section == "requests")
             {
-                teamViewModel.TeamProfileViewModel.UserJoinRequests = this.LoadUserJoinRequestsViewModel(teamName);
+                teamViewModel.TeamProfileViewModel.View = "Requests";
+                teamViewModel.TeamProfileViewModel.ViewData = this.GetUserJoinRequestsViewModel(teamName);
             }
             else if (section == "settings")
             {
-                teamViewModel.TeamProfileViewModel.SettingsViewModel = this.LoadSettingsViewModel(teamName);
+                teamViewModel.TeamProfileViewModel.View = "Settings";
+                teamViewModel.TeamProfileViewModel.ViewData = this.GetSettingsViewModel(teamName);
             }
             else
             {

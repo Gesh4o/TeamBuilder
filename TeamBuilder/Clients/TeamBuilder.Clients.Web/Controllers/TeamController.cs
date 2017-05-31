@@ -42,8 +42,6 @@
             }
         }
 
-      
-
         // GET: Team/Create
         public ActionResult Create()
         {
@@ -67,7 +65,7 @@
                 Team team = this.teamService.Add(teamBindingModel, userId);
                 this.teamService.AddUserToTeam(userId, team.Id);
 
-                return this.RedirectToAction("Details", new { id = team.Name });
+                return this.RedirectToAction("Details", new { teamName = team.Name });
             }
 
             return this.View(teamBindingModel);
@@ -183,7 +181,7 @@
             return new JsonResult { ContentType = "application/json", Data = new { message = "Request declined!", username = user.UserName } };
         }
 
-        // GET: Team/Details/5
+        // Default route is ignored for this action. See RouteConfig for more clarity.
         [AllowAnonymous]
         [Route("teams/{teamName}")]
         public ActionResult Details(string teamName, string section = "")
@@ -194,6 +192,12 @@
             }
 
             TeamDetailsViewModel model = this.teamService.GetTeamDetails(teamName, section, this.User.Identity.GetUserId());
+
+            if (model == null)
+            {
+                return new HttpStatusCodeResult(404);
+            }
+
             return this.View(model);
         }
     }
