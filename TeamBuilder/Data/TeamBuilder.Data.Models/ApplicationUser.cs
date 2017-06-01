@@ -7,6 +7,7 @@
 
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
+    using System.ComponentModel.DataAnnotations;
 
     public enum Gender
     {
@@ -30,8 +31,12 @@
 
         public Gender Gender { get; set; }
 
+        [Required]
+        [StringLength(maximumLength: 25, MinimumLength = 2, ErrorMessage = "First name must be between 2 and 25 letters long.")]
         public string FirstName { get; set; }
 
+        [Required]
+        [StringLength(maximumLength: 25, MinimumLength = 2, ErrorMessage = "Last name must be between 2 and 25 letters long.")]
         public string LastName { get; set; }
 
         public bool IsDeleted { get; set; }

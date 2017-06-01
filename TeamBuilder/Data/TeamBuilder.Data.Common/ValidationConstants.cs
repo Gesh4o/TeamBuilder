@@ -6,7 +6,7 @@
         public const int UserMinimumUserNameLength = 3;
         public const int UserMaximumUserNameLength = 50;
         public const int UserMinimumNameLength = 2;
-        public const int UserMaximumNameLength = 50;
+        public const int UserMaximumNameLength = 25;
         public const int UserMinimumPasswordLength = 6;
         public const int UserMaximumPasswordLength = 50;
         public const string UserPasswordMismatchErrorMessage = "The password and confirmation password do not match";
