@@ -1,9 +1,12 @@
-﻿/* Set padding to keep content from hitting the edges */
+﻿html {
+    min-height: 100%;
+}
+
+
+/* Set padding to keep content from hitting the edges */
 .body-content {
-    margin-top: 40px;
-    margin-bottom: 40px;
-    padding-left: 15px;
-    padding-right: 15px;
+    min-height: calc(100vh - 15vh);
+    padding: 40px 15px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -35,11 +38,19 @@ iframe {
     height: 315px;
 }
 
+header, footer {
+    height: 7.5vh;
+}
+
+footer {
+    height: 7.5vh;
+}
+
+
 #logged-header {
     padding: 0;
     position: initial;
     background-color: #fff;
-    margin-bottom: 20px;
 }
 
     #logged-header li a:hover {

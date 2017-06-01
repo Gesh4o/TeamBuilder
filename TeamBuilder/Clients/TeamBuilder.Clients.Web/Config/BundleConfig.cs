@@ -38,12 +38,12 @@
 
             bundles.Add(new StyleBundle("~/Content/css")
                 .Include(
-                    "~/Content/bootstrap.css", 
-                    "~/Content/site.css"));
+                    "~/Content/bootstrap.css" /*, 
+                    "~/Content/site.css"*/));
 
             bundles.Add(new StyleBundle("~/Content/styles")
                 .Include(
-                    "~/Content/styles.css", "~/lib/sweetalert2/dist/sweetalert2.min.css"));
+                    /*"~/Content/styles.css",*/ "~/lib/sweetalert2/dist/sweetalert2.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/plugins")
                 .Include(
