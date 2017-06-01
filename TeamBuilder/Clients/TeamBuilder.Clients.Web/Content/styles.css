@@ -273,6 +273,10 @@ pre code {
                 position: relative;
                 top: -5px;
             }
+
+.highlight {
+    display:inline-block;
+}
 /* ======= About Section ======= */
 .about {
     padding: 80px 0;
