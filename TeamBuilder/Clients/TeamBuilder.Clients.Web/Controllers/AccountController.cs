@@ -161,7 +161,7 @@
                     return View("ExternalLoginFailure");
                 }
 
-                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                ApplicationUser user = new ApplicationUser { UserName = model.Email, Email = model.Email, Gender = model.Gender, BirthDate = model.BirthDate, FirstName = model.FirstName, LastName = model.LastName };
                 IdentityResult result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
